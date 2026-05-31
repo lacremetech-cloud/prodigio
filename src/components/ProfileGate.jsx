@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { common, profiles, profileOrder } from '../data/content'
 import Photo from './Photo'
+import { Monogram } from './Logo'
 import { images } from '../data/images'
 
 // ====================================================================
@@ -38,6 +39,7 @@ export default function ProfileGate({ onSelect }) {
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col items-center"
         >
+          <Monogram className="mb-6 h-14 w-14 text-paper drop-shadow-[0_4px_24px_rgba(0,0,0,0.5)] sm:mb-7 sm:h-[68px] sm:w-[68px]" />
           <h1 className="text-on-photo font-display text-3xl tracking-luxe text-paper sm:text-5xl">
             {common.brand.name}
           </h1>
