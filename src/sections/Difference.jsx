@@ -19,15 +19,15 @@ export default function Difference({ profile }) {
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6">
         <div className="max-w-3xl">
           <Reveal>
-            <span className="eyebrow">{difference.eyebrow}</span>
+            <span className="eyebrow text-on-photo text-smoke-200">{difference.eyebrow}</span>
           </Reveal>
           <Reveal delay={0.1}>
-            <h2 className="mt-7 font-serif text-4xl font-light leading-tight text-paper sm:text-6xl">
+            <h2 className="text-on-photo mt-7 font-serif text-4xl font-light leading-tight text-paper sm:text-6xl">
               {difference.title}
             </h2>
           </Reveal>
           <Reveal delay={0.18}>
-            <p className="mt-8 text-base font-light leading-relaxed text-smoke-200/75 sm:text-lg">
+            <p className="text-on-photo mt-8 text-base font-light leading-relaxed text-paper/85 sm:text-lg">
               {difference.body}
             </p>
           </Reveal>
@@ -52,14 +52,14 @@ export default function Difference({ profile }) {
 
         {/* Clôture commune + accent propre au profil */}
         <Reveal delay={0.2}>
-          <p className="mt-16 max-w-3xl font-serif text-2xl font-light leading-snug text-paper sm:text-3xl">
+          <p className="text-on-photo mt-16 max-w-3xl font-serif text-2xl font-light leading-snug text-paper sm:text-3xl">
             {difference.closing}
           </p>
         </Reveal>
 
         <Morph trigger={key}>
           <div className="mt-10 flex items-start gap-5 border-l border-white/25 pl-6">
-            <p className="max-w-2xl text-base font-light italic leading-relaxed text-smoke-200/85 sm:text-lg">
+            <p className="text-on-photo max-w-2xl text-base font-light italic leading-relaxed text-paper/90 sm:text-lg">
               « {differenceAccent} »
             </p>
           </div>

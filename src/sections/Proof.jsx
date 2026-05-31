@@ -21,15 +21,15 @@ export default function Proof() {
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6">
         <div className="max-w-2xl">
           <Reveal>
-            <span className="eyebrow">{proof.eyebrow}</span>
+            <span className="eyebrow text-on-photo text-smoke-200">{proof.eyebrow}</span>
           </Reveal>
           <Reveal delay={0.1}>
-            <h2 className="mt-7 font-serif text-4xl font-light leading-tight text-paper sm:text-6xl">
+            <h2 className="text-on-photo mt-7 font-serif text-4xl font-light leading-tight text-paper sm:text-6xl">
               {proof.title}
             </h2>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="mt-5 text-base font-light text-smoke-200/80">
+            <p className="text-on-photo mt-5 text-base font-light text-paper/90">
               {proof.subtitle}
             </p>
           </Reveal>

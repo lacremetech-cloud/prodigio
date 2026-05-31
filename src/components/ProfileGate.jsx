@@ -6,26 +6,28 @@ import { images } from '../data/images'
 // ====================================================================
 //  Écran d'accueil — sélecteur de profil (plein écran, théâtral).
 //  C'est le premier contact : épuré, lent, prestigieux.
+//  Pensé pour tenir en un écran sur mobile (grille 2×2 compacte),
+//  tout en restant scrollable si l'appareil est très court.
 // ====================================================================
 export default function ProfileGate({ onSelect }) {
   return (
     <motion.section
       key="gate"
-      className="relative flex min-h-[100svh] w-full flex-col items-center justify-center px-6 py-20"
+      className="relative flex min-h-[100svh] w-full flex-col items-center justify-center px-5 py-12 sm:px-6 sm:py-20"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 1.04, filter: 'blur(8px)' }}
       transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
     >
-      {/* Fond photographique plein écran, très assombri. */}
+      {/* Fond photographique plein écran, très assombri pour la lisibilité. */}
       <Photo
         src={images.hero.proprietaire}
         veil=""
         label="PHOTO 4K — BIEN D’EXCEPTION"
         parallax={false}
       />
-      <div className="absolute inset-0 bg-ink/80" />
-      <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-transparent to-ink/90" />
+      <div className="absolute inset-0 bg-ink/85" />
+      <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/40 to-ink/90" />
 
       {/* Contenu */}
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center text-center">
@@ -36,10 +38,10 @@ export default function ProfileGate({ onSelect }) {
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col items-center"
         >
-          <h1 className="font-display text-4xl tracking-luxe text-paper sm:text-5xl">
+          <h1 className="text-on-photo font-display text-3xl tracking-luxe text-paper sm:text-5xl">
             {common.brand.name}
           </h1>
-          <span className="mt-4 text-[0.65rem] uppercase tracking-luxe text-smoke-400">
+          <span className="mt-3 text-[0.6rem] uppercase tracking-luxe text-smoke-200/80 sm:mt-4 sm:text-[0.65rem]">
             {common.brand.baseline}
           </span>
         </motion.div>
@@ -49,19 +51,19 @@ export default function ProfileGate({ onSelect }) {
           initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-14 flex flex-col items-center"
+          className="mt-9 flex flex-col items-center sm:mt-14"
         >
-          <div className="h-10 w-px bg-gradient-to-b from-white/0 via-white/40 to-white/0" />
-          <h2 className="mt-8 max-w-3xl font-serif text-4xl font-light leading-tight text-paper sm:text-6xl">
+          <div className="h-8 w-px bg-gradient-to-b from-white/0 via-white/50 to-white/0 sm:h-10" />
+          <h2 className="text-on-photo mt-6 font-serif text-4xl font-light italic leading-tight text-paper sm:mt-8 sm:text-6xl">
             {common.gate.question}
           </h2>
-          <p className="mt-6 max-w-md text-sm font-light leading-relaxed text-smoke-200/80">
+          <p className="mt-5 max-w-md text-sm font-light leading-relaxed text-smoke-200/90 sm:mt-6">
             {common.gate.subtitle}
           </p>
         </motion.div>
 
-        {/* Cartes de profil */}
-        <div className="mt-16 grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Cartes de profil — grille 2×2 sur mobile, une ligne sur desktop. */}
+        <div className="mt-9 grid w-full grid-cols-2 gap-3 sm:mt-14 sm:gap-4 lg:grid-cols-4">
           {profileOrder.map((key, i) => {
             const p = profiles[key]
             return (
@@ -76,28 +78,31 @@ export default function ProfileGate({ onSelect }) {
                   ease: [0.22, 1, 0.36, 1],
                 }}
                 whileHover={{ y: -6 }}
-                className="glass group relative flex min-h-[200px] flex-col items-start justify-between
-                  overflow-hidden p-7 text-left transition-all duration-700 ease-luxe
-                  hover:border-white/40 hover:bg-white/[0.13]"
+                className="group relative flex min-h-[150px] flex-col items-start justify-between
+                  overflow-hidden border border-white/25 bg-white/[0.08] p-5 text-left
+                  shadow-[0_10px_40px_rgba(0,0,0,0.45)] backdrop-blur-xl
+                  transition-all duration-700 ease-luxe
+                  hover:border-white/50 hover:bg-white/[0.16]
+                  sm:min-h-[210px] sm:p-7"
               >
-                <span className="text-[0.6rem] uppercase tracking-wideluxe text-smoke-400">
+                <span className="text-[0.6rem] uppercase tracking-wideluxe text-smoke-200/80">
                   0{i + 1}
                 </span>
 
                 <div className="mt-auto">
-                  <h3 className="font-serif text-2xl font-light leading-tight text-paper">
+                  <h3 className="font-serif text-xl font-light leading-tight text-paper sm:text-2xl">
                     {p.label}
                   </h3>
-                  <p className="mt-3 text-xs font-light leading-relaxed text-smoke-200/70">
+                  <p className="mt-2 text-[0.7rem] font-light leading-relaxed text-smoke-200/85 sm:mt-3 sm:text-xs">
                     {p.gateTagline}
                   </p>
                 </div>
 
-                {/* Flèche révélée au survol */}
+                {/* Flèche — toujours visible sur mobile, révélée au survol sur desktop. */}
                 <span
-                  className="mt-6 inline-flex items-center gap-2 text-[0.65rem] uppercase tracking-wideluxe
-                    text-paper opacity-0 transition-all duration-500 ease-luxe
-                    group-hover:opacity-100"
+                  className="mt-4 inline-flex items-center gap-2 text-[0.6rem] uppercase tracking-wideluxe
+                    text-paper transition-all duration-500 ease-luxe
+                    sm:mt-6 sm:opacity-0 sm:group-hover:opacity-100"
                 >
                   Entrer
                   <span className="transition-transform duration-500 ease-luxe group-hover:translate-x-1">
@@ -108,17 +113,17 @@ export default function ProfileGate({ onSelect }) {
             )
           })}
         </div>
-      </div>
 
-      {/* Indice de bas d'écran */}
-      <motion.span
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5, delay: 1.4 }}
-        className="absolute bottom-8 text-[0.6rem] uppercase tracking-wideluxe text-smoke-400"
-      >
-        Choisissez un profil pour commencer
-      </motion.span>
+        {/* Indice — en flux (plus de chevauchement possible sur mobile). */}
+        <motion.span
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5, delay: 1.4 }}
+          className="mt-10 text-[0.6rem] uppercase tracking-wideluxe text-smoke-200/70"
+        >
+          {common.gate.hint}
+        </motion.span>
+      </div>
     </motion.section>
   )
 }

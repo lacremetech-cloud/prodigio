@@ -97,6 +97,15 @@
 /*  Voiles dégradés réutilisables sur les photos                       */
 /* ------------------------------------------------------------------ */
 @layer utilities {
+  /* Ombre portée douce pour décoller le texte blanc des photos —
+     invisible à l'œil, mais garantit la lisibilité sur les zones claires.
+     Aucune couleur : on reste strictement noir & blanc. */
+  .text-on-photo {
+    text-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.55),
+      0 4px 24px rgba(0, 0, 0, 0.55);
+  }
+
   .veil-bottom {
     background: linear-gradient(
       to top,
@@ -110,9 +119,20 @@
   .veil-full {
     background: linear-gradient(
       to bottom,
+      rgba(10, 10, 10, 0.62) 0%,
+      rgba(10, 10, 10, 0.48) 50%,
+      rgba(10, 10, 10, 0.8) 100%
+    );
+  }
+
+  /* Voile radial : assombrit le centre, là où vit le texte des héros,
+     pour garantir un contraste suffisant quelle que soit la photo. */
+  .scrim-center {
+    background: radial-gradient(
+      ellipse 80% 60% at 50% 50%,
       rgba(10, 10, 10, 0.55) 0%,
-      rgba(10, 10, 10, 0.35) 50%,
-      rgba(10, 10, 10, 0.75) 100%
+      rgba(10, 10, 10, 0.2) 55%,
+      rgba(10, 10, 10, 0) 100%
     );
   }
 

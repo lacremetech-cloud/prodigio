@@ -14,18 +14,19 @@ export default function FinalCTA() {
     >
       <Photo src={images.finalCta} veil="veil-full" parallax />
       <div className="absolute inset-0 bg-ink/55" />
+      <div className="scrim-center pointer-events-none absolute inset-0 z-[1]" />
 
       <div className="relative z-10 mx-auto w-full max-w-3xl px-6 text-center">
         <Reveal>
-          <span className="eyebrow">{finalCta.eyebrow}</span>
+          <span className="eyebrow text-on-photo text-smoke-200">{finalCta.eyebrow}</span>
         </Reveal>
         <Reveal delay={0.1}>
-          <h2 className="mt-8 font-serif text-5xl font-light leading-tight text-paper sm:text-7xl">
+          <h2 className="text-on-photo mt-8 font-serif text-5xl font-light leading-tight text-paper sm:text-7xl">
             {finalCta.title}
           </h2>
         </Reveal>
         <Reveal delay={0.18}>
-          <p className="mx-auto mt-8 max-w-xl text-base font-light leading-relaxed text-smoke-200/80 sm:text-lg">
+          <p className="text-on-photo mx-auto mt-8 max-w-xl text-base font-light leading-relaxed text-paper/90 sm:text-lg">
             {finalCta.subtitle}
           </p>
         </Reveal>

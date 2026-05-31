@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import ProfileGate from './components/ProfileGate'
@@ -38,14 +38,6 @@ export default function App() {
   const scrollToContact = useCallback(() => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
   }, [])
-
-  // Verrouille le scroll de fond quand on est sur l'écran d'accueil.
-  useEffect(() => {
-    document.body.style.overflow = activeProfile ? '' : 'hidden'
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [activeProfile])
 
   const profile = activeProfile ? profiles[activeProfile] : null
 

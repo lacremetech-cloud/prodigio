@@ -12,12 +12,14 @@ export default function Hero({ profile, onContact }) {
   return (
     <section className="relative flex min-h-[100svh] w-full items-center justify-center overflow-hidden">
       <Photo src={images.hero[key]} veil="veil-full" parallax />
+      {/* Voile central : renforce le contraste du texte au milieu de l'écran. */}
+      <div className="scrim-center pointer-events-none absolute inset-0 z-[1]" />
 
       <div className="relative z-10 mx-auto w-full max-w-5xl px-6 text-center">
         <Morph trigger={key} className="flex flex-col items-center">
-          <span className="eyebrow">{hero.eyebrow}</span>
+          <span className="eyebrow text-on-photo text-smoke-200">{hero.eyebrow}</span>
 
-          <h1 className="mt-8 font-serif text-5xl font-light leading-[1.04] text-paper sm:text-7xl lg:text-[5.5rem]">
+          <h1 className="text-on-photo mt-8 font-serif text-5xl font-light leading-[1.04] text-paper sm:text-7xl lg:text-[5.5rem]">
             {titleLines.map((line, i) => (
               <span key={i} className="block">
                 {line}
@@ -25,7 +27,7 @@ export default function Hero({ profile, onContact }) {
             ))}
           </h1>
 
-          <p className="mx-auto mt-9 max-w-2xl text-base font-light leading-relaxed text-smoke-200/85 sm:text-lg">
+          <p className="text-on-photo mx-auto mt-9 max-w-2xl text-base font-light leading-relaxed text-paper/95 sm:text-lg">
             {hero.subtitle}
           </p>
         </Morph>
