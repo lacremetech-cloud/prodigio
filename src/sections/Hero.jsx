@@ -15,11 +15,11 @@ export default function Hero({ profile, onContact }) {
       {/* Voile central : renforce le contraste du texte au milieu de l'écran. */}
       <div className="scrim-center pointer-events-none absolute inset-0 z-[1]" />
 
-      <div className="relative z-10 mx-auto w-full max-w-5xl px-6 text-center">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 text-center">
         <Morph trigger={key} className="flex flex-col items-center">
           <span className="eyebrow text-on-photo text-smoke-200">{hero.eyebrow}</span>
 
-          <h1 className="text-on-photo mt-8 font-serif text-5xl font-light leading-[1.04] text-paper sm:text-7xl lg:text-[5.5rem]">
+          <h1 className="text-on-photo mt-8 font-serif text-5xl font-light leading-[1.04] text-paper sm:text-7xl lg:text-[5rem]">
             {titleLines.map((line, i) => (
               <span key={i} className="block">
                 {line}

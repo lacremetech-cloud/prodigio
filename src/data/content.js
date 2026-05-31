@@ -162,7 +162,7 @@ export const profiles = {
 
     hero: {
       eyebrow: 'Pour le marchand de biens',
-      title: 'Tant que votre bien ne se vend pas,\nil vous coûte.',
+      title: 'Tant que votre bien\nne se vend pas, il vous coûte.',
       subtitle:
         'Nous trouvons l’acheteur de votre bien d’exception, plus vite. Et nous ne sommes payés que le jour de la vente.',
       cta: 'Découvrir',
@@ -285,7 +285,7 @@ export const profiles = {
 
     hero: {
       eyebrow: 'Pour les propriétaires de biens d’exception',
-      title: 'Votre bien n’est pas une annonce\nparmi d’autres.',
+      title: 'Votre bien n’est pas une\nannonce parmi d’autres.',
       subtitle:
         'Nous le présentons avec discrétion, à des acheteurs vraiment sérieux — pas aux curieux. Et nous restons à vos côtés jusqu’à la signature.',
       cta: 'Découvrir',
