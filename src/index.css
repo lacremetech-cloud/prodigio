@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                               */
+/* ------------------------------------------------------------------ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-ink text-paper font-sans font-light;
+    margin: 0;
+    overflow-x: hidden;
+  }
+
+  /* Titres : serif éditoriale, fine et espacée. */
+  h1,
+  h2,
+  h3 {
+    @apply font-serif font-light;
+    line-height: 1.05;
+  }
+
+  /* Sélection de texte discrète, sans couleur. */
+  ::selection {
+    background: rgba(255, 255, 255, 0.85);
+    color: #0a0a0a;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Composants utilitaires — verre (glassmorphism), signature visuelle */
+/* ------------------------------------------------------------------ */
+@layer components {
+  /* Verre clair : à poser sur les photos / fonds sombres. */
+  .glass {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(18px) saturate(120%);
+    -webkit-backdrop-filter: blur(18px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  /* Verre clair plus marqué (panneaux de contenu posés sur photo). */
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(28px) saturate(130%);
+    -webkit-backdrop-filter: blur(28px) saturate(130%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  /* Verre teinté sombre : à poser sur les sections claires. */
+  .glass-dark {
+    background: rgba(10, 10, 10, 0.45);
+    backdrop-filter: blur(18px) saturate(120%);
+    -webkit-backdrop-filter: blur(18px) saturate(120%);
+    border: 1px solid rgba(10, 10, 10, 0.12);
+  }
+
+  /* Filet fin de séparation, très discret. */
+  .hairline {
+    @apply h-px w-full bg-white/15;
+  }
+
+  /* Bouton verre — micro-interaction d'éclaircissement au survol. */
+  .btn-glass {
+    @apply glass relative inline-flex items-center justify-center gap-3
+      px-9 py-4 text-xs uppercase tracking-wideluxe font-normal text-paper
+      transition-all duration-700 ease-luxe;
+  }
+  .btn-glass:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  /* Variante sombre du bouton verre, pour les sections claires. */
+  .btn-glass-dark {
+    @apply glass-dark relative inline-flex items-center justify-center gap-3
+      px-9 py-4 text-xs uppercase tracking-wideluxe font-normal text-paper
+      transition-all duration-700 ease-luxe;
+  }
+  .btn-glass-dark:hover {
+    background: rgba(10, 10, 10, 0.65);
+  }
+
+  /* Petit label de section (« 01 — LA SOLUTION »). */
+  .eyebrow {
+    @apply text-[0.7rem] uppercase tracking-luxe text-smoke-400 font-normal;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Voiles dégradés réutilisables sur les photos                       */
+/* ------------------------------------------------------------------ */
+@layer utilities {
+  .veil-bottom {
+    background: linear-gradient(
+      to top,
+      rgba(10, 10, 10, 0.92) 0%,
+      rgba(10, 10, 10, 0.45) 35%,
+      rgba(10, 10, 10, 0.1) 70%,
+      rgba(10, 10, 10, 0) 100%
+    );
+  }
+
+  .veil-full {
+    background: linear-gradient(
+      to bottom,
+      rgba(10, 10, 10, 0.55) 0%,
+      rgba(10, 10, 10, 0.35) 50%,
+      rgba(10, 10, 10, 0.75) 100%
+    );
+  }
+
+  /* Cache la barre de scroll quand on veut un défilement « propre ». */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
