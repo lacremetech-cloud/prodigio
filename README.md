@@ -97,9 +97,11 @@ src/
 └── sections/
     ├── Hero.jsx            # 1. Accroche principale (adaptée au profil)
     ├── Problem.jsx         # 2. La douleur spécifique du profil
-    ├── Solution.jsx        # 3. Les 3 temps Prodigio (commun)
-    ├── Proof.jsx           # 4. Le cas Chalet Mitja + chiffres (commun)
-    ├── Model.jsx           # 5. Le modèle de collaboration (adapté)
-    ├── Difference.jsx      # 6. La différence Prodigio (commun + accent profil)
-    └── FinalCTA.jsx        # 7. Invitation à la prise de contact (commun)
+    ├── Manifesto.jsx       # 3. Bande manifeste « Prodigio le vend » (commun)
+    ├── Method.jsx          # 4. La Méthode Prodigio™ — actif vs passif (commun)
+    ├── Proof.jsx           # 5. Le cas Chalet Mitja + chiffres (commun)
+    ├── Model.jsx           # 6. Le modèle de collaboration (adapté au profil)
+    ├── WhyUs.jsx           # 7. Pourquoi nous — les 4 « Parce que… » (commun + accent profil)
+    ├── Comparison.jsx      # 8. Tableau comparatif Agence classique / Prodigio (commun)
+    └── FinalCTA.jsx        # 9. Invitation à la prise de contact (commun)
 ```

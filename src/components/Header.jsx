@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { profiles, profileOrder } from '../data/content'
-import { Logo } from './Logo'
+import { common, profiles, profileOrder } from '../data/content'
 
 // ====================================================================
 //  Header discret — logo PRODIGIO + sélecteur de profil compact.
@@ -37,14 +36,15 @@ export default function Header({ activeProfile, onChangeProfile, onBackToGate })
         {/* Logo — ramène à l'écran d'accueil */}
         <button
           onClick={onBackToGate}
-          className="group flex items-center"
+          className="group flex flex-col items-start leading-none"
           aria-label="Revenir à l'écran d'accueil"
         >
-          <Logo
-            orientation="horizontal"
-            monogramClass="h-9 w-9 transition-transform duration-700 ease-luxe group-hover:rotate-[10deg]"
-            wordmarkClass="text-base"
-          />
+          <span className="font-display text-lg tracking-luxe text-paper">
+            {common.brand.name}
+          </span>
+          <span className="mt-1 hidden text-[0.55rem] uppercase tracking-wideluxe text-smoke-400 sm:block">
+            {common.brand.baseline}
+          </span>
         </button>
 
         {/* Sélecteur de profil compact */}

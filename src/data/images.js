@@ -23,7 +23,8 @@ export const images = {
 
   // Sections immersives communes.
   problem: U('1518005020951-eccb494ad742'), // architecture, lignes fortes
+  manifesto: U('1486406146926-c627a92ad1ab'), // architecture sombre, cinématographique
   proof: U('1551524559-8af4e6624178'), // chalet / montagne enneigée
-  difference: U('1600607687939-ce8a6c25118c'), // intérieur cinématographique
+  why: U('1600607687939-ce8a6c25118c'), // intérieur cinématographique
   finalCta: U('1505691938895-1758d7feb511'), // intérieur feutré, lumière douce
 }

@@ -5,10 +5,12 @@ import ProfileGate from './components/ProfileGate'
 import Header from './components/Header'
 import Hero from './sections/Hero'
 import Problem from './sections/Problem'
-import Solution from './sections/Solution'
+import Manifesto from './sections/Manifesto'
+import Method from './sections/Method'
 import Proof from './sections/Proof'
 import Model from './sections/Model'
-import Difference from './sections/Difference'
+import WhyUs from './sections/WhyUs'
+import Comparison from './sections/Comparison'
 import FinalCTA from './sections/FinalCTA'
 
 import { profiles } from './data/content'
@@ -61,10 +63,12 @@ export default function App() {
 
             <Hero profile={profile} onContact={scrollToContact} />
             <Problem profile={profile} />
-            <Solution />
+            <Manifesto />
+            <Method />
             <Proof />
             <Model profile={profile} />
-            <Difference profile={profile} />
+            <WhyUs profile={profile} />
+            <Comparison />
             <FinalCTA />
           </motion.main>
         )}

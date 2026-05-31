@@ -21,27 +21,38 @@ export const common = {
     hint: 'Sélectionnez votre profil pour commencer',
   },
 
-  // Section 3 — LA SOLUTION (3 temps — noms d'étapes en anglais)
-  solution: {
-    eyebrow: 'La méthode Prodigio',
-    title: 'Trois étapes. Un seul objectif : la vente.',
+  // Bande manifeste (après le problème) — déclaration de positionnement.
+  manifesto: {
+    line1: 'Prodigio ne met pas votre bien en vente.',
+    line2: 'Prodigio le vend.',
+    sub: 'Une méthode active, née du marketing, appliquée à l’immobilier d’exception.',
+  },
+
+  // Section 3 — LA MÉTHODE PRODIGIO™ (remplace « nos services »)
+  method: {
+    eyebrow: 'La Méthode Prodigio™',
+    lead: 'On ne vend pas une prestation. On applique un système.',
+    title: 'Vendre l’exception, activement.',
+    intro:
+      'La plupart des acteurs de l’immobilier sont passifs : ils publient une annonce, et ils attendent. Nous venons du marketing. Nous faisons l’inverse : nous allons chercher l’acheteur.',
     steps: [
       {
         index: '01',
-        name: 'Brand Development',
-        text: 'Votre bien mérite mieux qu’une photo et un prix. On lui crée sa page, son film, ses photos d’art, ses images par drone. On raconte son histoire.',
+        name: 'On transforme votre bien en marque.',
+        text: 'Film, photographie d’art, drone, narration du lieu. Votre bien ne ressemble plus à une annonce — il devient désirable.',
       },
       {
         index: '02',
-        name: 'Market Activation',
-        text: 'On n’attend pas que l’acheteur passe. On lance une publicité ciblée pour aller le trouver, là où il est. Brochure confidentielle, coordonnées recueillies, budget vérifié — pub avancée par nous.',
+        name: 'On va chercher l’acheteur. Activement.',
+        text: 'On ne propose pas votre bien à tout le monde. On le présente, en privé, uniquement à ceux qui peuvent et veulent l’acheter — ciblés, qualifiés, solvables. Le budget de cette mise en marché, c’est nous qui l’avançons.',
       },
       {
         index: '03',
-        name: 'Sales Performance',
-        text: 'On rappelle chaque acheteur tout de suite, on l’amène jusqu’à la visite, et on vous accompagne jusqu’à la signature. On ne livre pas des contacts. On livre des visites sérieuses, puis une vente.',
+        name: 'On le conduit jusqu’à la signature.',
+        text: 'Relance immédiate, qualification, visites privées avec budget validé, accompagnement jusqu’à l’acte. Vous ne recevez pas des « contacts ». Vous recevez des acheteurs.',
       },
     ],
+    result: 'Pendant que les autres attendent une visite, vous signez.',
   },
 
   // Section 4 — LA PREUVE (cas Chalet Mitja)
@@ -59,37 +70,81 @@ export const common = {
       'En une semaine, ce que la plupart des annonces de prestige n’obtiennent pas en six mois.',
   },
 
-  // Section 6 — LA DIFFÉRENCE
-  difference: {
-    eyebrow: 'La différence',
-    title: 'Ce que personne d’autre ne fait.',
-    body: 'Les agences publient des annonces et attendent. Les influenceurs de l’immobilier font du contenu : de la notoriété, mais des contacts qu’on ne maîtrise pas. Les vendeurs de contacts en gros bradent du volume sur le milieu de gamme.',
-    pillars: [
+  // Section 6 — POURQUOI NOUS (les 4 « Parce que… »)
+  why: {
+    eyebrow: 'Pourquoi nous',
+    title: 'Attendre l’acheteur, ou aller le chercher ?',
+    reasons: [
       {
-        name: 'La mise en scène',
-        text: 'Un bien = une marque. Film, photos d’art, histoire du lieu.',
+        title: 'Parce qu’on est la parfaite alchimie de l’immobilier et du marketing.',
+        text: 'Les agences classiques savent gérer un mandat. Nous, on sait créer la demande. Notre passé mêle immobilier et marketing de performance : on applique au luxe immobilier les meilleures stratégies d’acquisition du marché — celles qui font vendre vite dans les secteurs les plus concurrentiels. C’est ça, la différence entre attendre un acheteur et aller le chercher.',
       },
       {
-        name: 'La recherche d’acheteurs',
-        text: 'Publicité ciblée, brochure confidentielle, qualification.',
+        title: 'Parce que vous n’avez rien à perdre, et tout à gagner.',
+        text: 'On avance le budget de mise en marché. On ne se paie qu’à la vente. Si on ne vend pas, vous ne nous devez rien. Le risque, c’est nous qui le portons — pas vous.',
       },
       {
-        name: 'Le résultat',
-        text: 'Accompagnement jusqu’à la vente. Payés seulement quand c’est vendu.',
+        title: 'Parce qu’on ne propose pas votre bien à tout le monde.',
+        text: 'Tout le monde peut poster votre bien sur un portail et le diluer parmi des centaines d’annonces. Nous, on le présente uniquement à ceux qui vont l’acheter — discrètement, à une audience triée. La puissance d’une vraie machine d’acquisition, avec la discrétion d’une vente privée.',
+      },
+      {
+        title: 'Parce qu’on est actifs.',
+        text: 'On ne publie pas. On chasse. C’est toute la différence.',
       },
     ],
-    closing:
-      'Nous réunissons les trois choses que personne n’assemble : on transforme votre bien en marque, on va chercher les bons acheteurs, et on vous mène jusqu’à la vente. Payés au résultat.',
+  },
+
+  // Section 7 — LE TABLEAU COMPARATIF (Agence classique vs Prodigio)
+  comparison: {
+    eyebrow: 'Le match',
+    title: 'Une agence classique. Et nous.',
+    columns: { classic: 'Agence classique', prodigio: 'Prodigio' },
+    // classic / prodigio : une chaîne, ou un booléen (✓ / ✗) pour les lignes binaires.
+    rows: [
+      {
+        label: 'Mise en marché du bien',
+        classic: 'Annonce sur portails',
+        prodigio: 'Bien transformé en marque (film, photo, narration)',
+      },
+      {
+        label: 'Approche',
+        classic: 'Passive — on attend l’acheteur',
+        prodigio: 'Active — on va chercher l’acheteur',
+      },
+      {
+        label: 'Diffusion',
+        classic: 'À tout le monde, en public',
+        prodigio: 'Ciblée, en privé, aux acheteurs solvables',
+      },
+      { label: 'Acquisition payante ciblée', classic: false, prodigio: true },
+      {
+        label: 'Budget de mise en marché',
+        classic: 'À votre charge',
+        prodigio: 'Avancé par Prodigio',
+      },
+      { label: 'Relance des acheteurs', classic: 'Lente, manuelle', prodigio: 'Immédiate' },
+      {
+        label: 'Rémunération',
+        classic: 'Commission, vente ou pas',
+        prodigio: 'Uniquement à la vente',
+      },
+      { label: 'Délai', classic: 'Des mois', prodigio: 'Des semaines' },
+      {
+        label: 'Origine du savoir-faire',
+        classic: 'Immobilier',
+        prodigio: 'Marketing de performance + immobilier',
+      },
+    ],
   },
 
   // Section 7 — CTA FINAL
   finalCta: {
     eyebrow: 'Échangeons',
-    title: 'Parlons de votre bien.',
+    title: 'Votre bien mérite mieux qu’une annonce.',
     subtitle:
-      'On ne prend que les biens qu’on est sûrs de vendre. Le vôtre en fait-il partie ? Parlons-en.',
+      'On sélectionne les biens sur lesquels on est certains de performer. Parlons du vôtre.',
     button: 'Prendre contact',
-    signature: 'PRODIGIO — Immobilier d’exception',
+    signature: 'PRODIGIO — On vend l’exception.',
   },
 }
 
