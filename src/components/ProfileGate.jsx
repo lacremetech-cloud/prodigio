@@ -62,8 +62,8 @@ export default function ProfileGate({ onSelect }) {
           </p>
         </motion.div>
 
-        {/* Cartes de profil — grille 2×2 sur mobile, une ligne sur desktop. */}
-        <div className="mt-9 grid w-full grid-cols-2 gap-3 sm:mt-14 sm:gap-4 lg:grid-cols-4">
+        {/* Cartes de profil — centrées, deux profils côte à côte sur desktop. */}
+        <div className="mx-auto mt-9 grid w-full max-w-2xl grid-cols-1 gap-4 sm:mt-14 sm:grid-cols-2">
           {profileOrder.map((key, i) => {
             const p = profiles[key]
             return (

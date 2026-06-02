@@ -150,8 +150,10 @@ export const common = {
 
 /* -------------------------------------------------------------------- */
 /*  PROFILS — l'ordre définit l'affichage des cartes de l'écran d'accueil */
+/*  (Marchand et Promoteur restent définis plus bas mais ne sont pas      */
+/*   affichés ; pour les réactiver, ajoutez leur clé à profileOrder.)     */
 /* -------------------------------------------------------------------- */
-export const profileOrder = ['marchand', 'agence', 'promoteur', 'proprietaire']
+export const profileOrder = ['agence', 'proprietaire']
 
 export const profiles = {
   marchand: {
