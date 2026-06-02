@@ -22,7 +22,7 @@ export const common = {
     eyebrow: 'Votre contact',
     name: 'Victor Razeyre',
     role: 'Co-fondateur de Prodigio',
-    bio: 'Entrepreneur depuis dix ans, j’ai accompagné plus de 80 entreprises de tous horizons. J’ai développé une méthode d’acquisition sur-mesure pour l’immobilier de prestige : identifier et atteindre les acquéreurs qualifiés, pour réduire les délais de vente tout en valorisant pleinement chaque bien.',
+    bio: 'Entrepreneur depuis dix ans, j’ai aidé plus de 80 entreprises de tous horizons à booster leur acquisition. J’ai développé un système sur-mesure pour l’immobilier de prestige : identifier et atteindre les acquéreurs qualifiés, pour réduire les délais de vente tout en valorisant pleinement chaque bien.',
     quote: 'À vos côtés, un seul interlocuteur. À votre service, tout un système.',
     cta: 'Échanger avec Victor',
   },
