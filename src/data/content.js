@@ -25,7 +25,7 @@ export const common = {
   manifesto: {
     line1: 'Prodigio ne met pas votre bien en vente.',
     line2: 'Prodigio le vend.',
-    sub: 'Une méthode active, née du marketing, appliquée à l’immobilier d’exception.',
+    sub: 'Les stratégies digitales les plus performantes, appliquées à l’immobilier d’exception.',
   },
 
   // Section 3 — LA MÉTHODE PRODIGIO™ (remplace « nos services »)
@@ -34,7 +34,7 @@ export const common = {
     lead: 'On ne vend pas une prestation. On applique un système.',
     title: 'Vendre l’exception, activement.',
     intro:
-      'La plupart des acteurs de l’immobilier sont passifs : ils publient une annonce, et ils attendent. Nous venons du marketing. Nous faisons l’inverse : nous allons chercher l’acheteur.',
+      'La plupart des acteurs de l’immobilier sont passifs : ils publient une annonce, et ils attendent. Nous venons du marketing digital, et on fait l’inverse : on conçoit et on déploie pour vos biens des systèmes d’acquisition haute-performance — les stratégies les plus éprouvées du digital, taillées sur mesure pour l’exception — et on va chercher l’acheteur.',
     steps: [
       {
         index: '01',
@@ -76,12 +76,12 @@ export const common = {
     title: 'Attendre l’acheteur, ou aller le chercher ?',
     reasons: [
       {
-        title: 'Parce qu’on est la parfaite alchimie de l’immobilier et du marketing.',
-        text: 'Les agences classiques savent gérer un mandat. Nous, on sait créer la demande. Notre passé mêle immobilier et marketing de performance : on applique au luxe immobilier les meilleures stratégies d’acquisition du marché — celles qui font vendre vite dans les secteurs les plus concurrentiels. C’est ça, la différence entre attendre un acheteur et aller le chercher.',
+        title: 'Parce qu’on est le mariage parfait de l’immobilier et du digital.',
+        text: 'Les agences classiques savent gérer un mandat. Nous, on sait créer la demande. Notre passé mêle immobilier et marketing digital de performance : on applique à l’immobilier d’exception les stratégies d’acquisition les plus éprouvées — celles qui font vendre vite dans les secteurs les plus concurrentiels. C’est ça, la différence entre attendre un acheteur et aller le chercher.',
       },
       {
         title: 'Parce que vous n’avez rien à perdre, et tout à gagner.',
-        text: 'On avance le budget de mise en marché. On ne se paie qu’à la vente. Si on ne vend pas, vous ne nous devez rien. Le risque, c’est nous qui le portons — pas vous.',
+        text: 'Vous n’avez rien à payer. On avance le budget de mise en marché, et on ne se paie qu’à la vente. Si on ne vend pas, vous ne nous devez rien. Le risque, c’est nous qui le portons — pas vous.',
       },
       {
         title: 'Parce qu’on ne propose pas votre bien à tout le monde.',
