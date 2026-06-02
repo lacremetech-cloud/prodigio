@@ -21,8 +21,9 @@ export const common = {
   founder: {
     eyebrow: 'Votre contact',
     name: 'Victor Razeyre',
-    role: 'Entrepreneur · Fondateur de Prodigio',
-    bio: 'Dix ans d’entrepreneuriat, au service d’entreprises de tous secteurs. De cette expérience du marketing de performance, Victor a tiré une conviction : les meilleures stratégies d’acquisition n’avaient jamais été vraiment appliquées à l’immobilier d’exception. Il en a fait un système — celui de Prodigio — pensé pour aller chercher l’acheteur et raccourcir les délais de vente. C’est lui qui suit personnellement chaque bien que nous mettons en marché.',
+    role: 'Co-fondateur de Prodigio',
+    bio: 'Entrepreneur depuis dix ans, j’ai accompagné plus de 80 entreprises de tous horizons. J’ai développé une méthode d’acquisition sur-mesure pour l’immobilier de prestige : identifier et atteindre les acquéreurs qualifiés, pour réduire les délais de vente tout en valorisant pleinement chaque bien.',
+    quote: 'À vos côtés, un seul interlocuteur. À votre service, tout un système.',
     cta: 'Échanger avec Victor',
   },
 

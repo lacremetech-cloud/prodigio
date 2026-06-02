@@ -43,7 +43,14 @@ export default function Founder() {
               {f.bio}
             </p>
           </Reveal>
-          <Reveal delay={0.26}>
+          {f.quote && (
+            <Reveal delay={0.26}>
+              <p className="mt-9 max-w-xl border-l border-white/25 pl-6 font-serif text-xl font-light italic leading-snug text-paper sm:text-2xl">
+                {f.quote}
+              </p>
+            </Reveal>
+          )}
+          <Reveal delay={0.32}>
             <a
               href={common.contact.url}
               target="_blank"
