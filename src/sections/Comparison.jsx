@@ -48,6 +48,13 @@ export default function Comparison() {
               {comparison.title}
             </h2>
           </Reveal>
+          {comparison.lead && (
+            <Reveal delay={0.16}>
+              <p className="mt-7 max-w-xl text-base font-light leading-relaxed text-ink/65">
+                {comparison.lead}
+              </p>
+            </Reveal>
+          )}
         </div>
 
         {/* Tableau */}
