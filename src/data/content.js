@@ -94,53 +94,6 @@ export const common = {
     ],
   },
 
-  // Section 7 — LE TABLEAU COMPARATIF (agence marketing généraliste vs Prodigio)
-  comparison: {
-    eyebrow: 'La comparaison',
-    title: 'Une agence marketing. Mais pas n’importe laquelle.',
-    lead: 'La plupart génèrent des leads, tous secteurs confondus, et vous facturent la publicité. Nous sommes spécialisés dans l’immobilier d’exception — et on va jusqu’à la vente.',
-    columns: { classic: 'Agence marketing classique', prodigio: 'Prodigio' },
-    // classic / prodigio : une chaîne, ou un booléen (✓ / ✗) pour les lignes binaires.
-    rows: [
-      {
-        label: 'Spécialité',
-        classic: 'Marketing généraliste, tous secteurs',
-        prodigio: '100 % immobilier d’exception',
-      },
-      {
-        label: 'Ce qu’elle vous livre',
-        classic: 'Des leads, au volume',
-        prodigio: 'Des acheteurs, jusqu’à la vente',
-      },
-      {
-        label: 'Qualité des contacts',
-        classic: 'Non qualifiés, sans garantie',
-        prodigio: 'Visites avec budget validé',
-      },
-      {
-        label: 'Budget publicitaire',
-        classic: 'À votre charge',
-        prodigio: 'Avancé par Prodigio',
-      },
-      {
-        label: 'Le bien',
-        classic: 'Une campagne standard',
-        prodigio: 'Transformé en marque (film, photo, narration)',
-      },
-      {
-        label: 'Jusqu’où on va',
-        classic: 'On s’arrête au lead',
-        prodigio: 'Jusqu’à la signature',
-      },
-      { label: 'Accompagnement à la vente', classic: false, prodigio: true },
-      {
-        label: 'Rémunération',
-        classic: 'Au forfait, résultat ou pas',
-        prodigio: 'Uniquement à la vente',
-      },
-    ],
-  },
-
   // Section 7 — CTA FINAL
   finalCta: {
     eyebrow: 'Échangeons',
@@ -150,6 +103,110 @@ export const common = {
     button: 'Prendre contact',
     signature: 'PRODIGIO — On vend l’exception.',
   },
+}
+
+/* -------------------------------------------------------------------- */
+/*  TABLEAUX COMPARATIFS — un par audience.                              */
+/*  • Agence     : on se compare à une AGENCE MARKETING classique.        */
+/*  • Propriétaire : on se compare à une AGENCE IMMOBILIÈRE classique.    */
+/*  classic / prodigio : une chaîne, ou un booléen (✓ / ✗).              */
+/* -------------------------------------------------------------------- */
+
+// Pour les AGENCES — face à une agence marketing généraliste.
+const comparisonMarketing = {
+  eyebrow: 'La comparaison',
+  title: 'Une agence marketing. Mais pas n’importe laquelle.',
+  lead: 'La plupart génèrent des leads, tous secteurs confondus, et vous facturent la publicité. Nous sommes spécialisés dans l’immobilier d’exception — et on va jusqu’à la vente.',
+  columns: { classic: 'Agence marketing classique', prodigio: 'Prodigio' },
+  rows: [
+    {
+      label: 'Spécialité',
+      classic: 'Marketing généraliste, tous secteurs',
+      prodigio: '100 % immobilier d’exception',
+    },
+    {
+      label: 'Ce qu’elle vous livre',
+      classic: 'Des leads, au volume',
+      prodigio: 'Des acheteurs, jusqu’à la vente',
+    },
+    {
+      label: 'Qualité des contacts',
+      classic: 'Non qualifiés, sans garantie',
+      prodigio: 'Visites avec budget validé',
+    },
+    {
+      label: 'Budget publicitaire',
+      classic: 'À votre charge',
+      prodigio: 'Avancé par Prodigio',
+    },
+    {
+      label: 'Le bien',
+      classic: 'Une campagne standard',
+      prodigio: 'Transformé en marque (film, photo, narration)',
+    },
+    {
+      label: 'Jusqu’où on va',
+      classic: 'On s’arrête au lead',
+      prodigio: 'Jusqu’à la signature',
+    },
+    { label: 'Accompagnement à la vente', classic: false, prodigio: true },
+    {
+      label: 'Rémunération',
+      classic: 'Au forfait, résultat ou pas',
+      prodigio: 'Uniquement à la vente',
+    },
+  ],
+}
+
+// Pour les PROPRIÉTAIRES — face à une agence immobilière classique.
+const comparisonImmobilier = {
+  eyebrow: 'La comparaison',
+  title: 'Une agence immobilière classique. Et nous.',
+  lead: 'Une agence classique publie votre bien sur les portails, et attend. Nous, on le met en marché comme une marque et on va chercher l’acheteur.',
+  columns: { classic: 'Agence immobilière classique', prodigio: 'Prodigio' },
+  rows: [
+    {
+      label: 'Mise en marché du bien',
+      classic: 'Annonce sur portails',
+      prodigio: 'Bien transformé en marque (film, photo, narration)',
+    },
+    {
+      label: 'Approche',
+      classic: 'Passive — on attend l’acheteur',
+      prodigio: 'Active — on va chercher l’acheteur',
+    },
+    {
+      label: 'Diffusion',
+      classic: 'À tout le monde, en public',
+      prodigio: 'Ciblée, en privé, aux acheteurs solvables',
+    },
+    { label: 'Acquisition payante ciblée', classic: false, prodigio: true },
+    {
+      label: 'Budget de mise en marché',
+      classic: 'À votre charge',
+      prodigio: 'Avancé par Prodigio',
+    },
+    { label: 'Relance des acheteurs', classic: 'Lente, manuelle', prodigio: 'Immédiate' },
+    {
+      label: 'Rémunération',
+      classic: 'Commission, vente ou pas',
+      prodigio: 'Uniquement à la vente',
+    },
+    { label: 'Délai', classic: 'Des mois', prodigio: 'Des semaines' },
+    {
+      label: 'Origine du savoir-faire',
+      classic: 'Immobilier',
+      prodigio: 'Marketing de performance + immobilier',
+    },
+  ],
+}
+
+// Quel tableau pour quel profil. (Défaut = comparaison immobilière.)
+export const comparisons = {
+  agence: comparisonMarketing,
+  proprietaire: comparisonImmobilier,
+  marchand: comparisonImmobilier,
+  promoteur: comparisonImmobilier,
 }
 
 /* -------------------------------------------------------------------- */

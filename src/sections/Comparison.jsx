@@ -1,5 +1,6 @@
 import Reveal from '../components/Reveal'
-import { common } from '../data/content'
+import Morph from '../components/Morph'
+import { comparisons } from '../data/content'
 
 // Petit ✓ (Prodigio) / — (agence classique) pour les lignes binaires.
 function Mark({ on }) {
@@ -29,14 +30,15 @@ function Cell({ value, prodigio }) {
 }
 
 // Section 7 — Le tableau comparatif. Section claire.
+// Le tableau s'adapte au profil : marketing (agence) ou immobilier (propriétaire).
 // Colonne Prodigio mise en valeur (ruban sombre), agence classique en sourdine.
-export default function Comparison() {
-  const { comparison } = common
+export default function Comparison({ profile }) {
+  const comparison = comparisons[profile?.key] || comparisons.proprietaire
   const rowGrid = 'grid grid-cols-2 sm:grid-cols-[1.4fr_1fr_1.4fr]'
 
   return (
     <section className="relative w-full bg-paper-soft px-6 py-32 text-ink sm:py-44">
-      <div className="mx-auto w-full max-w-5xl">
+      <Morph trigger={profile?.key} className="mx-auto w-full max-w-5xl">
         <div className="max-w-2xl">
           <Reveal>
             <span className="text-[0.7rem] uppercase tracking-luxe text-smoke-400">
@@ -88,7 +90,7 @@ export default function Comparison() {
             ))}
           </div>
         </Reveal>
-      </div>
+      </Morph>
     </section>
   )
 }

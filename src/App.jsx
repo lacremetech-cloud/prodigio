@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import ProfileGate from './components/ProfileGate'
@@ -15,25 +15,47 @@ import FinalCTA from './sections/FinalCTA'
 
 import { profiles } from './data/content'
 
+// Déduit le profil actif depuis l'URL : /agence, /proprietaire…
+// Retourne null (écran d'accueil) si le chemin ne correspond à aucun profil.
+function profileFromPath() {
+  const key = window.location.pathname.replace(/^\/+|\/+$/g, '')
+  return key && profiles[key] ? key : null
+}
+
 export default function App() {
-  // `activeProfile` à null = on affiche l'écran d'accueil (sélecteur de profil).
-  const [activeProfile, setActiveProfile] = useState(null)
+  // `activeProfile` à null = écran d'accueil. Initialisé depuis l'URL
+  // (permet le lien direct vers /agence ou /proprietaire).
+  const [activeProfile, setActiveProfile] = useState(() => profileFromPath())
 
-  // Sélection d'un profil depuis l'écran d'accueil → on entre dans le site.
-  const handleSelect = useCallback((key) => {
+  // Navigue vers un profil et met l'URL à jour (lien partageable + bouton retour).
+  const goToProfile = useCallback((key, { scroll = false } = {}) => {
     setActiveProfile(key)
-    window.scrollTo({ top: 0 })
+    if (window.location.pathname !== `/${key}`) {
+      window.history.pushState({}, '', `/${key}`)
+    }
+    if (scroll) window.scrollTo({ top: 0 })
   }, [])
 
-  // Changement de profil depuis le header (le site reste affiché).
-  const handleChangeProfile = useCallback((key) => {
-    setActiveProfile(key)
-  }, [])
+  // Depuis l'écran d'accueil → on entre dans le site (et on remonte en haut).
+  const handleSelect = useCallback((key) => goToProfile(key, { scroll: true }), [goToProfile])
+
+  // Depuis le header → on change de page sans casser le défilement (morph en place).
+  const handleChangeProfile = useCallback((key) => goToProfile(key), [goToProfile])
 
   // Retour à l'écran d'accueil.
   const handleBackToGate = useCallback(() => {
     setActiveProfile(null)
+    if (window.location.pathname !== '/') {
+      window.history.pushState({}, '', '/')
+    }
     window.scrollTo({ top: 0 })
+  }, [])
+
+  // Synchronise l'état avec les boutons précédent/suivant du navigateur.
+  useEffect(() => {
+    const onPop = () => setActiveProfile(profileFromPath())
+    window.addEventListener('popstate', onPop)
+    return () => window.removeEventListener('popstate', onPop)
   }, [])
 
   // Défilement doux vers la section contact.
@@ -46,7 +68,7 @@ export default function App() {
   return (
     <div className="relative min-h-[100svh] bg-ink">
       <AnimatePresence mode="wait">
-        {!activeProfile ? (
+        {!profile ? (
           <ProfileGate key="gate" onSelect={handleSelect} />
         ) : (
           <motion.main
@@ -68,7 +90,7 @@ export default function App() {
             <Proof />
             <Model profile={profile} />
             <WhyUs profile={profile} />
-            <Comparison />
+            <Comparison profile={profile} />
             <FinalCTA />
           </motion.main>
         )}

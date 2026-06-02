@@ -26,6 +26,16 @@ npm run preview   # prévisualise le build de production
 
 ---
 
+## Routing & déploiement
+
+Le site a deux pages par profil, avec des URLs partageables :
+
+- `/agence` — version agence (comparaison face à une **agence marketing** classique)
+- `/proprietaire` — version propriétaire (comparaison face à une **agence immobilière** classique)
+- `/` — l'écran d'accueil (sélecteur de profil)
+
+Le routing est géré côté client via l'History API (aucune dépendance). **En production, configurez un fallback SPA** : toutes les routes inconnues doivent renvoyer `index.html` (Netlify : `/* /index.html 200` ; Vercel : rewrites ; Nginx : `try_files $uri /index.html`). Sinon, un accès direct à `/agence` renverra un 404.
+
 ## Stack
 
 - **React + Vite** — single page, aucun backend (tout est statique).
