@@ -33,7 +33,9 @@ export default function FinalCTA() {
 
         <Reveal delay={0.26}>
           <a
-            href="mailto:contact@prodigio.immo?subject=Prise%20de%20contact%20%E2%80%94%20PRODIGIO"
+            href={common.contact.url}
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn-glass mt-12"
           >
             {finalCta.button}

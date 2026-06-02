@@ -11,6 +11,7 @@ import Proof from './sections/Proof'
 import Model from './sections/Model'
 import WhyUs from './sections/WhyUs'
 import Comparison from './sections/Comparison'
+import Founder from './sections/Founder'
 import FinalCTA from './sections/FinalCTA'
 
 import { profiles } from './data/content'
@@ -58,11 +59,6 @@ export default function App() {
     return () => window.removeEventListener('popstate', onPop)
   }, [])
 
-  // Défilement doux vers la section contact.
-  const scrollToContact = useCallback(() => {
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
-  }, [])
-
   const profile = activeProfile ? profiles[activeProfile] : null
 
   return (
@@ -83,7 +79,7 @@ export default function App() {
               onBackToGate={handleBackToGate}
             />
 
-            <Hero profile={profile} onContact={scrollToContact} />
+            <Hero profile={profile} />
             <Problem profile={profile} />
             <Manifesto />
             <Method />
@@ -91,6 +87,7 @@ export default function App() {
             <Model profile={profile} />
             <WhyUs profile={profile} />
             <Comparison profile={profile} />
+            <Founder />
             <FinalCTA />
           </motion.main>
         )}

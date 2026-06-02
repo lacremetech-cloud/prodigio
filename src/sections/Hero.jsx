@@ -2,9 +2,10 @@ import { motion } from 'framer-motion'
 import Photo from '../components/Photo'
 import Morph from '../components/Morph'
 import { images } from '../data/images'
+import { common } from '../data/content'
 
 // Section 1 — Hero plein écran. Accroche principale adaptée au profil.
-export default function Hero({ profile, onContact }) {
+export default function Hero({ profile }) {
   const { hero, key } = profile
   // Le titre peut contenir un saut de ligne volontaire (\n) → deux lignes.
   const titleLines = hero.title.split('\n')
@@ -38,10 +39,15 @@ export default function Hero({ profile, onContact }) {
           transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="mt-12 flex flex-col items-center gap-5 sm:flex-row sm:justify-center"
         >
-          <button onClick={onContact} className="btn-glass">
+          <a
+            href={common.contact.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-glass"
+          >
             Prendre contact
             <span className="transition-transform duration-500 ease-luxe">→</span>
-          </button>
+          </a>
           <a
             href="#probleme"
             className="text-[0.65rem] uppercase tracking-wideluxe text-smoke-200/70

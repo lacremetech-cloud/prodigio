@@ -27,4 +27,8 @@ export const images = {
   proof: U('1551524559-8af4e6624178'), // chalet / montagne enneigée
   why: U('1600607687939-ce8a6c25118c'), // intérieur cinématographique
   finalCta: U('1505691938895-1758d7feb511'), // intérieur feutré, lumière douce
+
+  // Portrait du contact. Déposez la vraie photo dans public/victor.jpg.
+  // Tant que le fichier n'existe pas, un placeholder élégant s'affiche.
+  victor: '/victor.jpg',
 }

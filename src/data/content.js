@@ -14,6 +14,18 @@ export const common = {
     baseline: "Immobilier d'exception",
   },
 
+  // Lien des boutons « Prendre contact » (WhatsApp).
+  contact: { url: 'https://wa.me/33631909998' },
+
+  // Section « Votre contact » — présentation de Victor Razeyre.
+  founder: {
+    eyebrow: 'Votre contact',
+    name: 'Victor Razeyre',
+    role: 'Entrepreneur · Fondateur de Prodigio',
+    bio: 'Dix ans d’entrepreneuriat, au service d’entreprises de tous secteurs. De cette expérience du marketing de performance, Victor a tiré une conviction : les meilleures stratégies d’acquisition n’avaient jamais été vraiment appliquées à l’immobilier d’exception. Il en a fait un système — celui de Prodigio — pensé pour aller chercher l’acheteur et raccourcir les délais de vente. C’est lui qui suit personnellement chaque bien que nous mettons en marché.',
+    cta: 'Échanger avec Victor',
+  },
+
   // Section 0 — écran d'accueil
   gate: {
     question: 'Vous êtes…',
@@ -189,8 +201,8 @@ const comparisonImmobilier = {
     { label: 'Relance des acheteurs', classic: 'Lente, manuelle', prodigio: 'Immédiate' },
     {
       label: 'Rémunération',
-      classic: 'Commission, vente ou pas',
-      prodigio: 'Uniquement à la vente',
+      classic: 'Commission à la vente',
+      prodigio: 'Commission à la vente',
     },
     { label: 'Délai', classic: 'Des mois', prodigio: 'Des semaines' },
     {
