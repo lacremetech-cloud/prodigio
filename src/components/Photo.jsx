@@ -17,6 +17,7 @@ export default function Photo({
   label = 'PHOTO 4K — BIEN D’EXCEPTION',
   veil = 'veil-full', // classe de voile dégradé : 'veil-full' | 'veil-bottom' | ''
   parallax = true,
+  grayscale = true, // false = couleurs naturelles (ex. portrait)
   className = '',
 }) {
   const ref = useRef(null)
@@ -47,7 +48,7 @@ export default function Photo({
           onError={() => setFailed(true)}
           style={parallax ? { y, scale: 1.16 } : { scale: 1.05 }}
           className={`absolute inset-0 h-[116%] w-full object-cover
-            grayscale contrast-[1.08] brightness-[0.92]
+            ${grayscale ? 'grayscale contrast-[1.08] brightness-[0.92]' : ''}
             transition-opacity duration-[1600ms] ease-luxe
             ${loaded ? 'opacity-100' : 'opacity-0'}`}
         />

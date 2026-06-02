@@ -18,6 +18,7 @@ export default function Founder() {
               src={images.victor}
               veil=""
               parallax
+              grayscale={false}
               label="PORTRAIT — VICTOR RAZEYRE"
             />
           </div>
