@@ -295,6 +295,28 @@
   .exp p{max-width:780px; margin:22px auto 0; font-size:18px; color:var(--text-soft)}
   /* Delai vente : badge */
   .week-big{display:inline-block; font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(36px,5vw,60px); line-height:1; color:#0A0A0B; background:var(--gold); padding:12px 32px; border-radius:5px; margin-bottom:36px; box-shadow:0 18px 46px -18px rgba(201,174,124,.75)}
+  /* SCHEMA : flux 4 phases */
+  .flow{display:flex; align-items:stretch; gap:10px; margin:34px 0 6px; flex-wrap:wrap; justify-content:center}
+  .flow-step{flex:1; min-width:160px; text-align:center; border:1px solid rgba(201,174,124,.28); border-radius:8px; padding:22px 16px; background:rgba(201,174,124,.04)}
+  .flow-step .fn{display:block; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:32px; color:var(--gold); line-height:1}
+  .flow-step .fl{display:block; font-family:'Cormorant Garamond',serif; font-size:24px; margin-top:6px}
+  .flow-step .fd{display:block; font-size:12px; letter-spacing:.06em; color:var(--text-faint); margin-top:8px; text-transform:uppercase}
+  .flow-arrow{display:flex; align-items:center; color:var(--gold); font-size:26px}
+  /* SCHEMA : entonnoir d acquisition */
+  .funnel{margin:22px auto 6px; display:flex; flex-direction:column; align-items:center; gap:9px}
+  .funnel .fr{display:flex; justify-content:space-between; align-items:center; gap:20px; padding:16px 28px; border-radius:6px; border:1px solid rgba(201,174,124,.3); background:linear-gradient(135deg, rgba(201,174,124,.15), rgba(201,174,124,.04))}
+  .funnel .fr span{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--text-soft)}
+  .funnel .fr b{font-family:'Cormorant Garamond',serif; font-weight:500; font-size:27px; color:var(--gold)}
+  .funnel .fr1{width:100%} .funnel .fr2{width:84%} .funnel .fr3{width:68%} .funnel .fr4{width:52%}
+  .funnel .fr5{width:40%; background:var(--gold); border-color:var(--gold)}
+  .funnel .fr5 span,.funnel .fr5 b{color:#0A0A0B}
+  /* PLACEHOLDER preuve (Ads Manager a venir) */
+  .ph{border:1.5px dashed rgba(201,174,124,.5); border-radius:9px; padding:36px; text-align:center; background:rgba(201,174,124,.03)}
+  .ph-bars{display:flex; align-items:flex-end; justify-content:center; gap:12px; height:100px; margin-bottom:20px; opacity:.55}
+  .ph-bars i{width:34px; background:linear-gradient(var(--gold),rgba(201,174,124,.18)); border-radius:3px 3px 0 0}
+  .ph-t{font-family:'Cormorant Garamond',serif; font-size:25px; color:var(--gold)}
+  .ph-s{font-size:13.5px; color:var(--text-faint); margin-top:8px; letter-spacing:.04em}
+  @media(max-width:820px){ .flow-arrow{display:none} .funnel .fr{width:100% !important} }
   @media(max-width:820px){
     .wrap{padding:48px 22px 70px}
     .grid,.grid.three{grid-template-columns:1fr}
@@ -324,6 +346,17 @@
     <div class="tag">Notre différence</div>
     <div class="big serif">Créer le coup de cœur,<br><em>pas l'attendre.</em></div>
     <p class="note">Les portails ne captent que ceux qui cherchent déjà. Nous, on s'adresse à celui qui n'était pas en recherche, le client ne savait pas qu'il voulait ce bien, jusqu'à ce qu'on le mette devant ses yeux. On ne capte pas la demande : on la crée.</p>
+  </div>
+
+  <!-- SCHEMA : le systeme en 4 phases -->
+  <div class="flow reveal">
+    <div class="flow-step"><span class="fn">I</span><span class="fl">Comprendre</span><span class="fd">étude au sniper</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><span class="fn">II</span><span class="fl">Concevoir</span><span class="fd">angles &amp; scripts</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><span class="fn">III</span><span class="fl">Produire</span><span class="fd">écrin &amp; ads</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><span class="fn">IV</span><span class="fl">Acquérir</span><span class="fd">jusqu'à la vente</span></div>
   </div>
 
   <!-- PHASE I -->
@@ -406,6 +439,15 @@
 
   <!-- PHASE IV, ACQUÉRIR -->
   <div class="phase reveal"><span class="rn serif">IV.</span><span class="pt serif">Aller chercher l'acheteur</span><span class="pl"></span></div>
+  <!-- SCHEMA : entonnoir d acquisition -->
+  <div class="funnel reveal">
+    <div class="fr fr1"><span>Audience ciblée</span><b>~15 ads × marchés</b></div>
+    <div class="fr fr2"><span>Leads captés</span><b>114</b></div>
+    <div class="fr fr3"><span>Qualifiés par budget</span><b>+1M€ priorisés</b></div>
+    <div class="fr fr4"><span>Visites privées</span><b>6</b></div>
+    <div class="fr fr5"><span>Signature</span><b>1 vente</b></div>
+  </div>
+
   <div class="grid">
     <div class="card reveal"><span class="num serif">07</span><h3 class="serif">Diffusion ciblée <span class="chip">budget avancé</span></h3><p>Le bon message devant la bonne personne, en France comme à l'international. <strong>C'est Prodigio qui avance les frais publicitaires</strong>, vous ne sortez rien.</p><div class="intl-row"><span class="langtag">FR</span><span class="langtag">ES</span><span class="langtag">EN</span><span class="langtag">NL</span><span class="langtag">+</span></div><div class="detail">Chaque publicité est traduite et doublée dans la langue du pays cible.</div></div>
     <div class="card reveal"><span class="num serif">08</span><h3 class="serif">Qualification par le budget</h3><p>Avant la brochure, une seule question filtre les profils :</p>
@@ -417,6 +459,16 @@
     <div class="card reveal"><span class="num serif">09</span><h3 class="serif">Capture &amp; CRM synchronisé <span class="chip">temps réel</span></h3><p>Coordonnées + réponse au quiz enregistrées ensemble, segmentées par budget. Suivi en direct, partagé avec vous.</p><div class="crm-modes"><span class="crm-mode">Un CRM Prodigio sur-mesure, clé en main</span><span class="crm-mode">Ou connecté à VOTRE CRM via automatisations</span></div></div>
     <div class="card reveal"><span class="num serif">10</span><h3 class="serif">Séquences email &amp; nurturing</h3><p>Une séquence email éditoriale autour du bien (une caractéristique par jour) entretient le désir et fait mûrir les indécis. <span style="color:var(--gold)">À venir :</span> engagement WhatsApp instantané par IA.</p></div>
   </div>
+  <!-- PREUVE diffusion : placeholder Ads Manager (a remplacer par la vraie capture) -->
+  <div class="reveal" style="margin-top:20px">
+    <div class="illus-label is-after"><span class="lt serif">La diffusion, prouvée</span><span class="pill">capture à venir</span><span class="ln"></span></div>
+    <div class="ph" id="ads-proof">
+      <div class="ph-bars"><i style="height:40%"></i><i style="height:62%"></i><i style="height:82%"></i><i style="height:55%"></i><i style="height:96%"></i><i style="height:72%"></i></div>
+      <div class="ph-t">Résultats Ads Manager</div>
+      <div class="ph-s">Impressions · dépense · résultats par angle et par langue · capture en cours d'intégration</div>
+    </div>
+  </div>
+
   <div class="grid full" style="margin-top:18px">
     <div class="card handover reveal"><span class="num serif">11</span><h3 class="serif">Vous reprenez la main</h3><p>Les leads qualifiés vous reviennent : <strong>vous rappelez les acheteurs, vous menez vos échanges et vous consignez vos commentaires</strong> directement dans le suivi. Vous gardez le contrôle de la relation, sur des contacts déjà triés et solvables.</p></div>
   </div>
