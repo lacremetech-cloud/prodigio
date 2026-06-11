@@ -420,7 +420,7 @@
   .dash .tile b{font-family:'Cormorant Garamond',serif; font-size:clamp(30px,4vw,50px); color:var(--gold); line-height:1; display:block}
   .dash .tile span{font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--text-faint)}
   /* comparatif */
-  .cmp{display:grid; grid-template-columns:1fr auto 1fr; gap:0; width:min(900px,94vw); margin-top:3.6vh; align-items:stretch}
+  .slide .cmp{display:grid; grid-template-columns:1fr auto 1fr; gap:0; width:min(900px,94vw); margin-top:3.6vh; align-items:stretch}
   .cmp .col{border:1px solid var(--line); border-radius:12px; padding:clamp(16px,2.2vw,28px)}
   .cmp .col.win{border-color:rgba(201,174,124,.5); background:linear-gradient(160deg,rgba(201,174,124,.10),rgba(201,174,124,.015))}
   .cmp .col h4{font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(20px,2.4vw,30px); margin-bottom:14px; text-align:center}
@@ -431,7 +431,7 @@
   .cmp .ic{flex:0 0 auto; margin-top:1px; color:var(--text-faint); font-size:13px}
   .cmp .col.win .ic{color:var(--gold)}
   .cmp .axis{display:flex; flex-direction:column; justify-content:space-around; gap:6px; padding:54px 14px 14px; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--text-faint); text-align:center}
-  @media(max-width:760px){ .cmp{grid-template-columns:1fr} .cmp .axis{display:none} .cmp .col{margin-bottom:10px} .pipe .node span{display:none} }
+  @media(max-width:760px){ .slide .cmp{grid-template-columns:1fr} .cmp .axis{display:none} .cmp .col{margin-bottom:10px} .pipe .node span{display:none} }
 </style>
 </head>
 <body>
