@@ -1,3 +1,4 @@
 User-agent: *
-Disallow: /systeme
-Disallow: /systeme.html
+Allow: /
+
+Sitemap: https://www.prodigio.fr/sitemap.xml

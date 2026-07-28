@@ -59,6 +59,44 @@ export default function App() {
     return () => window.removeEventListener('popstate', onPop)
   }, [])
 
+  // Met à jour le titre et les balises SEO à chaque changement de page (les
+  // valeurs doivent rester alignées sur le pré-rendu — scripts/prerender.mjs).
+  useEffect(() => {
+    const site = 'https://www.prodigio.fr'
+    const seo = {
+      gate: {
+        title: 'PRODIGIO — Immobilier d’exception',
+        description:
+          'PRODIGIO transforme chaque bien d’exception en marque : branding, acquisition ciblée et accompagnement jusqu’à la vente. On ne met pas votre bien en vente, on le vend.',
+        path: '/',
+      },
+      agence: {
+        title: 'Agences immobilières de luxe : la machine d’acquisition — PRODIGIO',
+        description: profiles.agence.hero.subtitle,
+        path: '/agence',
+      },
+      proprietaire: {
+        title: 'Vendre un bien d’exception, avec discrétion — PRODIGIO',
+        description: profiles.proprietaire.hero.subtitle,
+        path: '/proprietaire',
+      },
+    }
+    const s = (activeProfile && seo[activeProfile]) || seo.gate
+    const url = site + s.path
+    document.title = s.title
+    const set = (selector, attr, value) => {
+      const el = document.head.querySelector(selector)
+      if (el) el.setAttribute(attr, value)
+    }
+    set('meta[name="description"]', 'content', s.description)
+    set('link[rel="canonical"]', 'href', url)
+    set('meta[property="og:title"]', 'content', s.title)
+    set('meta[property="og:description"]', 'content', s.description)
+    set('meta[property="og:url"]', 'content', url)
+    set('meta[name="twitter:title"]', 'content', s.title)
+    set('meta[name="twitter:description"]', 'content', s.description)
+  }, [activeProfile])
+
   const profile = activeProfile ? profiles[activeProfile] : null
 
   return (
