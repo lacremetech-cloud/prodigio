@@ -1,6 +1,8 @@
 {
   "rewrites": [
     { "source": "/systeme", "destination": "/systeme.html" },
+    { "source": "/agence", "destination": "/agence.html" },
+    { "source": "/proprietaire", "destination": "/proprietaire.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

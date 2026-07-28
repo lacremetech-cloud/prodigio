@@ -10,6 +10,30 @@
     />
     <title>PRODIGIO — Immobilier d'exception</title>
 
+    <!-- SEO / partage social. Les valeurs par défaut ci-dessous concernent
+         l'écran d'accueil ; le pré-rendu (scripts/prerender.mjs) les remplace
+         page par page à la compilation. -->
+    <link rel="canonical" href="https://www.prodigio.fr/" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PRODIGIO" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="PRODIGIO — Immobilier d'exception" />
+    <meta
+      property="og:description"
+      content="PRODIGIO — Immobilier d'exception. Chaque bien devient une marque : branding, acquisition ciblée et performance jusqu'à la vente."
+    />
+    <meta property="og:url" content="https://www.prodigio.fr/" />
+    <meta property="og:image" content="https://www.prodigio.fr/og-cover.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="PRODIGIO — Immobilier d'exception" />
+    <meta
+      name="twitter:description"
+      content="PRODIGIO — Immobilier d'exception. Chaque bien devient une marque : branding, acquisition ciblée et performance jusqu'à la vente."
+    />
+    <meta name="twitter:image" content="https://www.prodigio.fr/og-cover.jpg" />
+    <!--PRERENDER_HEAD-->
+
     <!-- Polices de luxe : Cormorant Garamond / Playfair Display (titres), Jost (corps).
          Chargement NON bloquant : la page s'affiche immédiatement (police système),
          puis les polices de luxe se substituent dès qu'elles sont prêtes. Si le réseau
@@ -75,17 +99,22 @@
   </head>
   <body>
     <div id="root">
-      <!-- Fallback affiché tant que React n'a pas pris la main. -->
+      <!-- PRERENDER_BODY_START -->
+      <!-- Fallback affiché tant que React n'a pas pris la main. En production,
+           le pré-rendu remplace ce bloc par le vrai contenu de chaque page
+           (visible par les robots et les navigateurs sans JavaScript). React
+           reprend la main dès qu'il démarre. -->
       <div id="boot">
         <div class="brand">PRODIGIO</div>
         <div class="spinner"></div>
         <noscript>
           <p class="hint">
-            Ce site nécessite JavaScript. Activez-le dans votre navigateur, puis
-            rechargez la page.
+            Ce site est optimisé avec JavaScript. Activez-le pour la version
+            interactive, puis rechargez la page.
           </p>
         </noscript>
       </div>
+      <!-- PRERENDER_BODY_END -->
     </div>
 
     <!-- Garde-fou : si l'application n'a pas démarré après quelques secondes
