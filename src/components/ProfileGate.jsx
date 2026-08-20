@@ -23,7 +23,7 @@ export default function ProfileGate({ onSelect }) {
       <Photo
         src={images.hero.proprietaire}
         veil=""
-        label="PHOTO 4K — BIEN D’EXCEPTION"
+        label="PHOTO 4K · BIEN D’EXCEPTION"
         parallax={false}
       />
       <div className="absolute inset-0 bg-ink/85" />

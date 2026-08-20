@@ -14,7 +14,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 export default function Photo({
   src,
   alt = '',
-  label = 'PHOTO 4K — BIEN D’EXCEPTION',
+  label = 'PHOTO 4K · BIEN D’EXCEPTION',
   veil = 'veil-full', // classe de voile dégradé : 'veil-full' | 'veil-bottom' | ''
   parallax = true,
   grayscale = true, // false = couleurs naturelles (ex. portrait)

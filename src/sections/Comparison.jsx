@@ -16,7 +16,7 @@ function Mark({ on }) {
     </svg>
   ) : (
     <span className="text-lg leading-none text-ink/25" aria-label="non">
-      —
+      –
     </span>
   )
 }

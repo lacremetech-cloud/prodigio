@@ -68,19 +68,20 @@ export const common = {
     result: 'Pendant que les autres attendent une visite, vous signez.',
   },
 
-  // Section 4, LA PREUVE (cas Chalet Mitja)
+  // Section 4, LA PREUVE (cas réel : chalet du Cambre d’Aze)
   proof: {
-    eyebrow: 'La preuve',
-    title: 'Chalet Mitja, Font-Romeu',
-    subtitle: 'Bien d’exception, environ 1,6 M€. Mis en marché par Prodigio.',
-    period: 'En une semaine',
+    eyebrow: 'Cas réel',
+    title: 'Le chalet du Cambre d’Aze',
+    subtitle: 'Chalet ~1,6 M€ · Font-Romeu · client marchand de biens',
+    period: 'En 5 jours',
     stats: [
-      { value: '100', label: 'prospects générés' },
-      { value: '10', label: 'visites qualifiées · budget validé à +1 M€' },
-      { value: '1', label: 'vente conclue' },
+      { value: '114', label: 'leads captés' },
+      { value: '51', label: 'budget déclaré' },
+      { value: '17', label: 'acheteurs +1 M€' },
+      { value: '6', label: 'visites' },
     ],
     footnote:
-      'En une semaine, ce que la plupart des annonces de prestige n’obtiennent pas en six mois.',
+      'En cinq jours, ce que la plupart des annonces de prestige n’obtiennent pas en six mois.',
   },
 
   // Section 6, POURQUOI NOUS (les 4 « Parce que… »)
