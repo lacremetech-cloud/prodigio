@@ -19,7 +19,7 @@ import { common, profiles, comparisons } from '../src/data/content.js'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const DIST = join(__dirname, '..', 'dist')
 const SITE = 'https://www.prodigio.fr'
-const OG_IMAGE = `${SITE}/og-cover.jpg`
+const OG_IMAGE = `${SITE}/og-cover.png`
 
 /* ---------- échappement ---------- */
 const esc = (s = '') =>
