@@ -1,5 +1,5 @@
 // ====================================================================
-//  CONTENU PRODIGIO — tout le copy du site vit ici.
+//  CONTENU PRODIGIO, tout le copy du site vit ici.
 //  Pour ajuster un texte : modifiez simplement la valeur correspondante.
 //  - `common`   : contenu identique pour tous les profils.
 //  - `profiles` : contenu adapté à chaque cible (4 profils).
@@ -17,7 +17,7 @@ export const common = {
   // Lien des boutons « Prendre contact » (WhatsApp).
   contact: { url: 'https://wa.me/33631909998' },
 
-  // Section « Votre contact » — présentation de Victor Razeyre.
+  // Section « Votre contact », présentation de Victor Razeyre.
   founder: {
     eyebrow: 'Votre contact',
     name: 'Victor Razeyre',
@@ -27,37 +27,37 @@ export const common = {
     cta: 'Échanger avec Victor',
   },
 
-  // Section 0 — écran d'accueil
+  // Section 0, écran d'accueil
   gate: {
     question: 'Vous êtes…',
     subtitle: 'Choisissez votre profil. Tout le reste s’écrit pour vous.',
     hint: 'Sélectionnez votre profil pour commencer',
   },
 
-  // Bande manifeste (après le problème) — déclaration de positionnement.
+  // Bande manifeste (après le problème), déclaration de positionnement.
   manifesto: {
     line1: 'Prodigio ne met pas votre bien en vente.',
     line2: 'Prodigio le vend.',
     sub: 'Une méthode active, née du marketing, appliquée à l’immobilier d’exception.',
   },
 
-  // Section 3 — LA MÉTHODE PRODIGIO™ (remplace « nos services »)
+  // Section 3, LA MÉTHODE PRODIGIO™ (remplace « nos services »)
   method: {
     eyebrow: 'La Méthode Prodigio™',
     lead: 'On ne vend pas une prestation. On applique un système.',
     title: 'Vendre l’exception, activement.',
     intro:
-      'La plupart des acteurs de l’immobilier sont passifs : ils publient une annonce, et ils attendent. Nous venons du marketing digital, et on fait l’inverse : on conçoit et on déploie pour vos biens des systèmes d’acquisition haute-performance — les stratégies les plus éprouvées du digital, taillées sur mesure pour l’exception — et on va chercher l’acheteur.',
+      'La plupart des acteurs de l’immobilier sont passifs : ils publient une annonce, et ils attendent. Nous venons du marketing digital, et on fait l’inverse : on conçoit et on déploie pour vos biens des systèmes d’acquisition haute-performance, les stratégies les plus éprouvées du digital, taillées sur mesure pour l’exception, et on va chercher l’acheteur.',
     steps: [
       {
         index: '01',
         name: 'On transforme votre bien en marque.',
-        text: 'Film, photographie d’art, drone, narration du lieu. Votre bien ne ressemble plus à une annonce — il devient désirable.',
+        text: 'Film, photographie d’art, drone, narration du lieu. Votre bien ne ressemble plus à une annonce, il devient désirable.',
       },
       {
         index: '02',
         name: 'On va chercher l’acheteur. Activement.',
-        text: 'On ne propose pas votre bien à tout le monde. On le présente uniquement à ceux qui peuvent et veulent l’acheter — ciblés, qualifiés, solvables. Le budget de cette mise en marché, c’est nous qui l’avançons.',
+        text: 'On ne propose pas votre bien à tout le monde. On le présente uniquement à ceux qui peuvent et veulent l’acheter, ciblés, qualifiés, solvables. Le budget de cette mise en marché, c’est nous qui l’avançons.',
       },
       {
         index: '03',
@@ -68,11 +68,11 @@ export const common = {
     result: 'Pendant que les autres attendent une visite, vous signez.',
   },
 
-  // Section 4 — LA PREUVE (cas Chalet Mitja)
+  // Section 4, LA PREUVE (cas Chalet Mitja)
   proof: {
     eyebrow: 'La preuve',
     title: 'Chalet Mitja, Font-Romeu',
-    subtitle: 'Bien d’exception — environ 1,6 M€. Mis en marché par Prodigio.',
+    subtitle: 'Bien d’exception, environ 1,6 M€. Mis en marché par Prodigio.',
     period: 'En une semaine',
     stats: [
       { value: '100', label: 'prospects générés' },
@@ -83,22 +83,22 @@ export const common = {
       'En une semaine, ce que la plupart des annonces de prestige n’obtiennent pas en six mois.',
   },
 
-  // Section 6 — POURQUOI NOUS (les 4 « Parce que… »)
+  // Section 6, POURQUOI NOUS (les 4 « Parce que… »)
   why: {
     eyebrow: 'Pourquoi nous',
     title: 'Attendre l’acheteur, ou aller le chercher ?',
     reasons: [
       {
         title: 'Parce qu’on est la parfaite alchimie de l’immobilier et du marketing.',
-        text: 'Les agences classiques savent gérer un mandat. Nous, on sait créer la demande. Notre passé mêle immobilier et marketing de performance : on applique au luxe immobilier les meilleures stratégies d’acquisition du marché — celles qui font vendre vite dans les secteurs les plus concurrentiels. C’est ça, la différence entre attendre un acheteur et aller le chercher.',
+        text: 'Les agences classiques savent gérer un mandat. Nous, on sait créer la demande. Notre passé mêle immobilier et marketing de performance : on applique au luxe immobilier les meilleures stratégies d’acquisition du marché, celles qui font vendre vite dans les secteurs les plus concurrentiels. C’est ça, la différence entre attendre un acheteur et aller le chercher.',
       },
       {
         title: 'Parce que vous n’avez rien à perdre, et tout à gagner.',
-        text: 'Rien à débourser, rien à risquer : on avance le budget de mise en marché, et on ne se paie qu’à la vente. Si on ne vend pas, vous ne nous devez rien. Le risque, c’est nous qui le portons — pas vous.',
+        text: 'Rien à débourser, rien à risquer : on avance le budget de mise en marché, et on ne se paie qu’à la vente. Si on ne vend pas, vous ne nous devez rien. Le risque, c’est nous qui le portons, pas vous.',
       },
       {
         title: 'Parce qu’on ne propose pas votre bien à tout le monde.',
-        text: 'Tout le monde peut poster votre bien sur un portail et le diluer parmi des centaines d’annonces. Nous, on le présente uniquement à ceux qui vont l’acheter — une audience ciblée et triée. Toute la puissance d’une vraie machine d’acquisition, au service de votre bien.',
+        text: 'Tout le monde peut poster votre bien sur un portail et le diluer parmi des centaines d’annonces. Nous, on le présente uniquement à ceux qui vont l’acheter, une audience ciblée et triée. Toute la puissance d’une vraie machine d’acquisition, au service de votre bien.',
       },
       {
         title: 'Parce qu’on est actifs.',
@@ -107,29 +107,29 @@ export const common = {
     ],
   },
 
-  // Section 7 — CTA FINAL
+  // Section 7, CTA FINAL
   finalCta: {
     eyebrow: 'Échangeons',
     title: 'Votre bien mérite mieux qu’une annonce.',
     subtitle:
       'On sélectionne les biens sur lesquels on est certains de performer. Parlons du vôtre.',
     button: 'Prendre contact',
-    signature: 'PRODIGIO — On vend l’exception.',
+    signature: 'PRODIGIO · On vend l’exception.',
   },
 }
 
 /* -------------------------------------------------------------------- */
-/*  TABLEAUX COMPARATIFS — un par audience.                              */
+/*  TABLEAUX COMPARATIFS, un par audience.                              */
 /*  • Agence     : on se compare à une AGENCE MARKETING classique.        */
 /*  • Propriétaire : on se compare à une AGENCE IMMOBILIÈRE classique.    */
 /*  classic / prodigio : une chaîne, ou un booléen (✓ / ✗).              */
 /* -------------------------------------------------------------------- */
 
-// Pour les AGENCES — face à une agence marketing généraliste.
+// Pour les AGENCES, face à une agence marketing généraliste.
 const comparisonMarketing = {
   eyebrow: 'La comparaison',
   title: 'Une agence marketing. Mais pas n’importe laquelle.',
-  lead: 'La plupart génèrent des leads, tous secteurs confondus, et vous facturent la publicité. Nous sommes spécialisés dans l’immobilier d’exception — et on va jusqu’à la vente.',
+  lead: 'La plupart génèrent des leads, tous secteurs confondus, et vous facturent la publicité. Nous sommes spécialisés dans l’immobilier d’exception, et on va jusqu’à la vente.',
   columns: { classic: 'Agence marketing classique', prodigio: 'Prodigio' },
   rows: [
     {
@@ -171,7 +171,7 @@ const comparisonMarketing = {
   ],
 }
 
-// Pour les PROPRIÉTAIRES — face à une agence immobilière classique.
+// Pour les PROPRIÉTAIRES, face à une agence immobilière classique.
 const comparisonImmobilier = {
   eyebrow: 'La comparaison',
   title: 'Une agence immobilière classique. Et nous.',
@@ -185,8 +185,8 @@ const comparisonImmobilier = {
     },
     {
       label: 'Approche',
-      classic: 'Passive — on attend l’acheteur',
-      prodigio: 'Active — on va chercher l’acheteur',
+      classic: 'Passive, on attend l’acheteur',
+      prodigio: 'Active, on va chercher l’acheteur',
     },
     {
       label: 'Diffusion',
@@ -223,7 +223,7 @@ export const comparisons = {
 }
 
 /* -------------------------------------------------------------------- */
-/*  PROFILS — l'ordre définit l'affichage des cartes de l'écran d'accueil */
+/*  PROFILS, l'ordre définit l'affichage des cartes de l'écran d'accueil */
 /*  (Marchand et Promoteur restent définis plus bas mais ne sont pas      */
 /*   affichés ; pour les réactiver, ajoutez leur clé à profileOrder.)     */
 /* -------------------------------------------------------------------- */
@@ -247,13 +247,13 @@ export const profiles = {
     problem: {
       eyebrow: 'Le problème',
       title: 'Un bien rénové qui ne part pas, c’est une marge qui fond.',
-      body: 'Vous le savez mieux que personne : un bien qui traîne, ce sont des intérêts qui courent, du capital bloqué, une marge qui s’érode mois après mois. Et sur les portails, votre bien à 1,5 M€ se retrouve noyé au milieu de centaines d’annonces — jugé sur une photo et un prix. Il y récolte en moyenne 3,9 appels. Pas 3,9 acheteurs. 3,9 appels.',
+      body: 'Vous le savez mieux que personne : un bien qui traîne, ce sont des intérêts qui courent, du capital bloqué, une marge qui s’érode mois après mois. Et sur les portails, votre bien à 1,5 M€ se retrouve noyé au milieu de centaines d’annonces, jugé sur une photo et un prix. Il y récolte en moyenne 3,9 appels. Pas 3,9 acheteurs. 3,9 appels.',
     },
 
     model: {
       eyebrow: 'Le modèle',
       title: 'On ne se paie que quand vous vendez.',
-      body: 'Vous nous confiez le bien et ses visuels. On s’occupe de tout le reste : on le met en scène, on va chercher les acheteurs, on avance même le budget de publicité. Notre commission — environ 5 % — n’est prélevée que le jour de la vente. Pas de vente, pas de facture.',
+      body: 'Vous nous confiez le bien et ses visuels. On s’occupe de tout le reste : on le met en scène, on va chercher les acheteurs, on avance même le budget de publicité. Notre commission, environ 5 %, n’est prélevée que le jour de la vente. Pas de vente, pas de facture.',
       points: [
         { label: 'Vous apportez', value: 'Le bien et ses visuels.' },
         {
@@ -265,7 +265,7 @@ export const profiles = {
     },
 
     differenceAccent:
-      'On ne vous vend pas des contacts à la pièce. On vend votre bien — et on ne touche notre part qu’une fois que c’est fait.',
+      'On ne vous vend pas des contacts à la pièce. On vend votre bien, et on ne touche notre part qu’une fois que c’est fait.',
   },
 
   agence: {
@@ -278,20 +278,20 @@ export const profiles = {
       eyebrow: 'Pour les agences de luxe',
       title: 'Vos plus beaux biens\nattendent.',
       subtitle:
-        'Vous avez le mandat et le réseau. Nous allons chercher les acheteurs que votre vitrine ne touche pas — sur vos biens premium, sans le moindre risque pour vous.',
+        'Vous avez le mandat et le réseau. Nous allons chercher les acheteurs que votre vitrine ne touche pas, sur vos biens premium, sans le moindre risque pour vous.',
       cta: 'Découvrir',
     },
 
     problem: {
       eyebrow: 'Le problème',
       title: 'Publier une annonce n’a jamais fait venir le bon acheteur.',
-      body: 'Vous êtes excellent dans votre métier : les mandats, la relation, la négociation. Mais aller chercher activement des acheteurs en ligne, avec de la vraie publicité ciblée, ce n’est pas votre métier — et vous le savez. Résultat : vos plus belles propriétés patientent sur un portail, réduites à une vignette et un prix, pendant que le bon acheteur, lui, ne les voit jamais.',
+      body: 'Vous êtes excellent dans votre métier : les mandats, la relation, la négociation. Mais aller chercher activement des acheteurs en ligne, avec de la vraie publicité ciblée, ce n’est pas votre métier, et vous le savez. Résultat : vos plus belles propriétés patientent sur un portail, réduites à une vignette et un prix, pendant que le bon acheteur, lui, ne les voit jamais.',
     },
 
     model: {
       eyebrow: 'Le modèle',
       title: 'On travaille pour vous, en coulisses.',
-      body: 'On intervient en co-mandat sur les biens premium que vous choisissez. Vous gardez votre nom, votre client, votre relation. Nous, on apporte ce qui fait venir les acheteurs — et on partage la commission, à hauteur de ce qu’on a réellement apporté.',
+      body: 'On intervient en co-mandat sur les biens premium que vous choisissez. Vous gardez votre nom, votre client, votre relation. Nous, on apporte ce qui fait venir les acheteurs, et on partage la commission, à hauteur de ce qu’on a réellement apporté.',
       points: [
         {
           label: 'Co-mandat',
@@ -309,7 +309,7 @@ export const profiles = {
     },
 
     differenceAccent:
-      'Gardez votre marque et vos clients. Nous, on vous amène les acheteurs — bien par bien, sans vous coûter un centime tant qu’il n’y a pas de vente.',
+      'Gardez votre marque et vos clients. Nous, on vous amène les acheteurs, bien par bien, sans vous coûter un centime tant qu’il n’y a pas de vente.',
   },
 
   promoteur: {
@@ -322,20 +322,20 @@ export const profiles = {
       eyebrow: 'Pour les promoteurs haut de gamme',
       title: 'Vendez vos lots\navant même la livraison.',
       subtitle:
-        'On lance votre programme comme une marque et on remplit votre carnet de réservations dès le premier jour — avec de vrais acheteurs, pas des curieux.',
+        'On lance votre programme comme une marque et on remplit votre carnet de réservations dès le premier jour, avec de vrais acheteurs, pas des curieux.',
       cta: 'Découvrir',
     },
 
     problem: {
       eyebrow: 'Le problème',
       title: 'Un programme qui se vend au ralenti, c’est votre marge qui s’évapore.',
-      body: 'Un programme d’exception lancé comme un produit banal se commercialise lentement. Les lots partent un à un, la pré-commercialisation s’éternise, votre trésorerie attend — et chaque mois qui passe grignote votre marge. Le problème n’est presque jamais le programme. C’est la façon dont il est mis en marché.',
+      body: 'Un programme d’exception lancé comme un produit banal se commercialise lentement. Les lots partent un à un, la pré-commercialisation s’éternise, votre trésorerie attend, et chaque mois qui passe grignote votre marge. Le problème n’est presque jamais le programme. C’est la façon dont il est mis en marché.',
     },
 
     model: {
       eyebrow: 'Le modèle',
       title: 'Une vraie marque pour votre programme. Des acheteurs dès le lancement.',
-      body: 'On construit l’identité de votre programme comme une marque à part entière, puis on va chercher — par une publicité ciblée — les acheteurs et investisseurs qui ont le budget. On vous accompagne jusqu’à la vente des lots. La rémunération s’ajuste à l’ampleur du programme.',
+      body: 'On construit l’identité de votre programme comme une marque à part entière, puis on va chercher, par une publicité ciblée, les acheteurs et investisseurs qui ont le budget. On vous accompagne jusqu’à la vente des lots. La rémunération s’ajuste à l’ampleur du programme.',
       points: [
         {
           label: 'La marque',
@@ -350,7 +350,7 @@ export const profiles = {
     },
 
     differenceAccent:
-      'De l’image du programme jusqu’au dernier lot vendu — on raisonne en résultats, pas en prestation.',
+      'De l’image du programme jusqu’au dernier lot vendu, on raisonne en résultats, pas en prestation.',
   },
 
   proprietaire: {
@@ -363,14 +363,14 @@ export const profiles = {
       eyebrow: 'Pour les propriétaires de biens d’exception',
       title: 'Votre bien n’est pas une\nannonce parmi d’autres.',
       subtitle:
-        'Nous le présentons à des acheteurs vraiment sérieux — pas aux curieux. Et nous restons à vos côtés jusqu’à la signature.',
+        'Nous le présentons à des acheteurs vraiment sérieux, pas aux curieux. Et nous restons à vos côtés jusqu’à la signature.',
       cta: 'Découvrir',
     },
 
     problem: {
       eyebrow: 'Le problème',
       title: 'Sur un portail, votre bien rare devient une annonce ordinaire.',
-      body: 'Mettre un bien d’exception sur un portail, c’est le noyer parmi des centaines d’autres — et l’exposer à tout le monde : les voisins curieux, les visiteurs du dimanche, ceux qui n’achèteront jamais. Votre lieu mérite une mise en scène à sa hauteur, et des visites réservées aux seuls acheteurs qui en ont vraiment les moyens.',
+      body: 'Mettre un bien d’exception sur un portail, c’est le noyer parmi des centaines d’autres, et l’exposer à tout le monde : les voisins curieux, les visiteurs du dimanche, ceux qui n’achèteront jamais. Votre lieu mérite une mise en scène à sa hauteur, et des visites réservées aux seuls acheteurs qui en ont vraiment les moyens.',
     },
 
     model: {
@@ -381,7 +381,7 @@ export const profiles = {
         { label: 'Approche', value: 'Au cas par cas, sur-mesure.' },
         {
           label: 'Les acheteurs',
-          value: 'Une sélection ciblée et solvable — pas les curieux.',
+          value: 'Une sélection ciblée et solvable, pas les curieux.',
         },
         {
           label: 'Accompagnement',

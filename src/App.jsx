@@ -60,18 +60,18 @@ export default function App() {
   }, [])
 
   // Met à jour le titre et les balises SEO à chaque changement de page (les
-  // valeurs doivent rester alignées sur le pré-rendu — scripts/prerender.mjs).
+  // valeurs doivent rester alignées sur le pré-rendu, scripts/prerender.mjs).
   useEffect(() => {
     const site = 'https://www.prodigio.fr'
     const seo = {
       gate: {
-        title: 'PRODIGIO — Immobilier d’exception',
+        title: 'PRODIGIO · Immobilier d’exception',
         description:
           'PRODIGIO transforme chaque bien d’exception en marque : branding, acquisition ciblée et accompagnement jusqu’à la vente. On ne met pas votre bien en vente, on le vend.',
         path: '/',
       },
       agence: {
-        title: 'Agences immobilières de luxe : la machine d’acquisition — PRODIGIO',
+        title: 'Agences immobilières de luxe : la machine d’acquisition · PRODIGIO',
         description: profiles.agence.hero.subtitle,
         path: '/agence',
       },

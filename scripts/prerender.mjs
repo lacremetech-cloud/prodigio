@@ -1,5 +1,5 @@
 // ====================================================================
-//  PRÉ-RENDU STATIQUE — PRODIGIO
+//  PRÉ-RENDU STATIQUE · PRODIGIO
 //  Exécuté après `vite build`. Pour chaque route publique (/, /agence,
 //  /proprietaire), on génère un vrai fichier HTML : contenu textuel réel
 //  + balises SEO propres (title, description, canonical, Open Graph…).
@@ -71,7 +71,7 @@ function proofBlock() {
       (s) =>
         `<li style="margin:0 0 6px"><strong style="font-family:'Cormorant Garamond',Georgia,serif;font-size:28px;${S.gold}">${esc(
           s.value,
-        )}</strong> — ${esc(s.label)}</li>`,
+        )}</strong> · ${esc(s.label)}</li>`,
     )
     .join('')
   return section(
@@ -169,7 +169,7 @@ function profileBody(key) {
       (pt) =>
         `<li style="margin:0 0 6px"><strong style="${S.gold}">${esc(
           pt.label,
-        )}</strong> — ${esc(pt.value)}</li>`,
+        )}</strong> · ${esc(pt.value)}</li>`,
     )
     .join('')
 
@@ -275,7 +275,7 @@ const PAGES = [
   {
     file: 'index.html',
     url: `${SITE}/`,
-    title: 'PRODIGIO — Immobilier d’exception',
+    title: 'PRODIGIO · Immobilier d’exception',
     description:
       'PRODIGIO transforme chaque bien d’exception en marque : branding, acquisition ciblée et accompagnement jusqu’à la vente. On ne met pas votre bien en vente, on le vend.',
     body: gateBody(),
@@ -283,7 +283,7 @@ const PAGES = [
   {
     file: 'agence.html',
     url: `${SITE}/agence`,
-    title: 'Agences immobilières de luxe : la machine d’acquisition — PRODIGIO',
+    title: 'Agences immobilières de luxe : la machine d’acquisition · PRODIGIO',
     description: profiles.agence.hero.subtitle,
     body: profileBody('agence'),
   },
