@@ -57,7 +57,7 @@ export const common = {
       {
         index: '02',
         name: 'On va chercher l’acheteur. Activement.',
-        text: 'On ne propose pas votre bien à tout le monde. On le présente, en privé, uniquement à ceux qui peuvent et veulent l’acheter — ciblés, qualifiés, solvables. Le budget de cette mise en marché, c’est nous qui l’avançons.',
+        text: 'On ne propose pas votre bien à tout le monde. On le présente uniquement à ceux qui peuvent et veulent l’acheter — ciblés, qualifiés, solvables. Le budget de cette mise en marché, c’est nous qui l’avançons.',
       },
       {
         index: '03',
@@ -98,7 +98,7 @@ export const common = {
       },
       {
         title: 'Parce qu’on ne propose pas votre bien à tout le monde.',
-        text: 'Tout le monde peut poster votre bien sur un portail et le diluer parmi des centaines d’annonces. Nous, on le présente uniquement à ceux qui vont l’acheter — discrètement, à une audience triée. La puissance d’une vraie machine d’acquisition, avec la discrétion d’une vente privée.',
+        text: 'Tout le monde peut poster votre bien sur un portail et le diluer parmi des centaines d’annonces. Nous, on le présente uniquement à ceux qui vont l’acheter — une audience ciblée et triée. Toute la puissance d’une vraie machine d’acquisition, au service de votre bien.',
       },
       {
         title: 'Parce qu’on est actifs.',
@@ -191,7 +191,7 @@ const comparisonImmobilier = {
     {
       label: 'Diffusion',
       classic: 'À tout le monde, en public',
-      prodigio: 'Ciblée, en privé, aux acheteurs solvables',
+      prodigio: 'Ciblée, aux acheteurs solvables',
     },
     { label: 'Acquisition payante ciblée', classic: false, prodigio: true },
     {
@@ -357,13 +357,13 @@ export const profiles = {
     key: 'proprietaire',
     label: 'Propriétaire',
     short: 'Propriétaire',
-    gateTagline: 'Une vente discrète, à la hauteur du lieu.',
+    gateTagline: 'Une mise en marché à la hauteur du lieu.',
 
     hero: {
       eyebrow: 'Pour les propriétaires de biens d’exception',
       title: 'Votre bien n’est pas une\nannonce parmi d’autres.',
       subtitle:
-        'Nous le présentons avec discrétion, à des acheteurs vraiment sérieux — pas aux curieux. Et nous restons à vos côtés jusqu’à la signature.',
+        'Nous le présentons à des acheteurs vraiment sérieux — pas aux curieux. Et nous restons à vos côtés jusqu’à la signature.',
       cta: 'Découvrir',
     },
 
@@ -375,10 +375,10 @@ export const profiles = {
 
     model: {
       eyebrow: 'Le modèle',
-      title: 'Une vente sur-mesure, discrète, jusqu’au bout.',
-      body: 'On traite votre bien au cas par cas, en toute confidentialité. On le met en scène comme une pièce unique, on le présente à une sélection d’acheteurs ciblés et solvables, et on reste à vos côtés jusqu’à la signature. Du premier jour au dernier, un seul interlocuteur.',
+      title: 'Une vente sur-mesure, jusqu’au bout.',
+      body: 'On traite votre bien au cas par cas. On le met en scène comme une pièce unique, on le présente à une sélection d’acheteurs ciblés et solvables, et on reste à vos côtés jusqu’à la signature. Du premier jour au dernier, un seul interlocuteur.',
       points: [
-        { label: 'Approche', value: 'Au cas par cas, en toute confidentialité.' },
+        { label: 'Approche', value: 'Au cas par cas, sur-mesure.' },
         {
           label: 'Les acheteurs',
           value: 'Une sélection ciblée et solvable — pas les curieux.',
@@ -391,6 +391,6 @@ export const profiles = {
     },
 
     differenceAccent:
-      'La discrétion d’une vente privée. La force d’une vraie machine pour trouver l’acheteur.',
+      'Le soin d’une vente sur-mesure. La force d’une vraie machine pour trouver l’acheteur.',
   },
 }

@@ -76,7 +76,7 @@ export default function App() {
         path: '/agence',
       },
       proprietaire: {
-        title: 'Vendre un bien d’exception, avec discrétion — PRODIGIO',
+        title: 'Vendre votre bien d’exception avec Prodigio',
         description: profiles.proprietaire.hero.subtitle,
         path: '/proprietaire',
       },
