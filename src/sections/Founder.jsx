@@ -19,7 +19,7 @@ export default function Founder() {
               veil=""
               parallax
               grayscale={false}
-              label="PORTRAIT — VICTOR RAZEYRE"
+              label="PORTRAIT · VICTOR RAZEYRE"
             />
           </div>
         </Reveal>

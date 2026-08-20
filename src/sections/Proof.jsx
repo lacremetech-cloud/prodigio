@@ -4,8 +4,8 @@ import Reveal from '../components/Reveal'
 import { common } from '../data/content'
 import { images } from '../data/images'
 
-// Section 4 — La preuve. Plein écran immersif sur photo, avec les chiffres.
-// Le cas Chalet Mitja, commun à tous les profils.
+// Section 4 · La preuve. Plein écran immersif sur photo, avec les chiffres.
+// Le cas réel du chalet du Cambre d’Aze, commun à tous les profils.
 export default function Proof() {
   const { proof } = common
 
@@ -15,7 +15,7 @@ export default function Proof() {
         src={images.proof}
         veil="veil-full"
         parallax
-        label="PHOTO 4K — CHALET MITJA, FONT-ROMEU"
+        label="PHOTO 4K · CAMBRE D’AZE, FONT-ROMEU"
       />
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6">
@@ -42,7 +42,7 @@ export default function Proof() {
               {proof.period}
             </span>
 
-            <div className="mt-8 grid grid-cols-1 gap-10 sm:grid-cols-3">
+            <div className="mt-8 grid grid-cols-2 gap-8 sm:grid-cols-4">
               {proof.stats.map((stat, i) => (
                 <motion.div
                   key={stat.label}
@@ -55,7 +55,7 @@ export default function Proof() {
                     ease: [0.22, 1, 0.36, 1],
                   }}
                 >
-                  <div className="font-display text-6xl font-light leading-none text-paper sm:text-7xl">
+                  <div className="font-display text-5xl font-light leading-none text-paper sm:text-6xl">
                     {stat.value}
                   </div>
                   <div className="mt-4 text-xs font-light leading-relaxed text-smoke-200/70">

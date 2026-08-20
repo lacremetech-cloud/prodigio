@@ -55,7 +55,6 @@ export default function Header({ activeProfile, onChangeProfile, onBackToGate })
               tracking-wideluxe text-paper transition-all duration-500 ease-luxe
               hover:border-white/40 hover:bg-white/[0.14]"
           >
-            <span className="text-smoke-400">Profil —</span>
             <span>{current?.short}</span>
             <motion.span
               animate={{ rotate: open ? 180 : 0 }}
