@@ -140,7 +140,7 @@ function Regions() {
 export default function Buy() {
   const h = buy.hero
   const [prefill, setPrefill] = useState(null)
-  const options = buy.form.steps[0].options
+  const options = buy.form.steps[0].options.map((o) => (Array.isArray(o) ? o[0] : o))
 
   // « Recevoir la brochure » : pré-sélectionne le bien et descend au questionnaire.
   const onBrochure = (p) => {

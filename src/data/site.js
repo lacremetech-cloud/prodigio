@@ -360,11 +360,17 @@ export const sell = {
       text: 'Victor vous rappelle sous 24 heures ouvrées. Si vous préférez, écrivez-lui directement sur WhatsApp.',
     },
     steps: [
-      { name: 'type', q: 'Quel type de bien vendez-vous ?', options: ['Villa ou maison', 'Chalet', 'Appartement d’exception', 'Domaine ou propriété', 'Programme ou plusieurs lots'] },
-      { name: 'valeur', q: 'Quelle est sa valeur estimée ?', options: ['Moins de 800 000 €', '800 000 € à 1,5 M€', '1,5 M€ à 3 M€', 'Plus de 3 M€'] },
-      { name: 'situation', q: 'Où en êtes-vous ?', options: ['Je réfléchis à vendre', 'En vente depuis moins de 6 mois', 'En vente depuis plus de 6 mois', 'Je suis agent ou marchand de biens'] },
-      { name: 'ville', q: 'Où se trouve le bien ?', input: { type: 'text', placeholder: 'Ville ou commune', autoComplete: 'address-level2' } },
+      // Chaque option : [libellé affiché, code attendu par Prodigio OS (submit_mandate_funnel)].
+      { name: 'property_type', q: 'Quel type de bien vendez-vous ?', options: [['Villa ou maison', 'villa_architecte'], ['Chalet', 'chalet'], ['Appartement d’exception', 'appartement_exception'], ['Domaine ou propriété de caractère', 'domaine_caractere'], ['Autre (programme, plusieurs lots…)', 'autre']] },
+      { name: 'estimated_value_band', q: 'Quelle est sa valeur estimée ?', options: [['Moins de 500 000 €', 'moins_500k'], ['500 000 € à 800 000 €', '500k_800k'], ['800 000 € à 1,2 M€', '800k_1_2m'], ['1,2 M€ à 2 M€', '1_2m_2m'], ['Plus de 2 M€', 'plus_2m'], ['Je souhaite une estimation', 'accompagnement_estimation']] },
+      { name: 'mandate_situation', q: 'Le bien est-il déjà en vente ?', options: [['Pas encore', 'aucun_mandat'], ['Oui, en mandat simple', 'mandat_simple'], ['Oui, en mandat exclusif', 'mandat_exclusif'], ['Je suis agent ou marchand de biens', 'autre']] },
+      { name: 'sale_horizon', q: 'Quand souhaitez-vous vendre ?', options: [['Dès que possible', 'des_que_possible'], ['Dans les 3 mois', 'trois_mois'], ['Dans les 6 mois', 'six_mois'], ['Je réfléchis', 'en_reflexion']] },
+      { name: 'location_city', q: 'Où se trouve le bien ?', input: { type: 'text', placeholder: 'Ville ou commune', autoComplete: 'address-level2' } },
     ],
+    consent: {
+      mode: 'checkbox',
+      text: 'J’accepte que PRODIGIO me recontacte au sujet de la vente de mon bien. Mes données ne sont jamais revendues.',
+    },
   },
 }
 
@@ -436,11 +442,20 @@ export const buy = {
       text: 'Nous vous envoyons la brochure et vous rappelons pour organiser la visite. Pour aller plus vite, écrivez à Victor sur WhatsApp.',
     },
     steps: [
-      { name: 'bien', q: 'Quel bien vous intéresse ?', options: ['Maison Jean-Jaurès · Cassis', 'Villa Verdun · Cassis', 'Les Airelles · Les 2 Alpes', 'Une autre recherche'] },
-      { name: 'projet', q: 'Quel est votre projet ?', options: ['Résidence principale', 'Résidence secondaire', 'Investissement'] },
-      { name: 'delai', q: 'Dans quel délai ?', options: ['Moins de 3 mois', '3 à 6 mois', '6 à 12 mois', 'Je me renseigne'] },
-      { name: 'budget', q: 'Quel est votre budget ?', options: ['Moins de 800 000 €', '800 000 € à 1,5 M€', '1,5 M€ à 3 M€', 'Plus de 3 M€'] },
+      // Le code du bien = son slug dans Prodigio OS (formulaire acquéreur actif).
+      // Sans slug (bien pas encore dans l'OS, autre recherche) : repli WhatsApp.
+      { name: 'slug', q: 'Quel bien vous intéresse ?', options: [['Maison Jean-Jaurès · Cassis', 'villa-jean-jaures'], ['Villa Verdun · Cassis', 'villa-verdun'], ['Les Airelles · Les 2 Alpes', ''], ['Une autre recherche', '']] },
+      { name: 'project_nature', q: 'Quel est votre projet ?', options: [['Résidence principale', 'residence_principale'], ['Résidence secondaire', 'residence_secondaire'], ['Investissement', 'investissement']] },
+      { name: 'budget_band', q: 'Quel est votre budget ?', options: [['Moins de 800 000 €', 'moins_800k'], ['800 000 € à 1,2 M€', '800k_1_2m'], ['1,2 M€ à 2 M€', '1_2m_2m'], ['2 M€ à 3 M€', '2m_3m'], ['Plus de 3 M€', 'plus_3m']] },
+      { name: 'financing', q: 'Comment financez-vous ce projet ?', options: [['Fonds propres', 'fonds_propres'], ['Accord bancaire obtenu', 'accord_bancaire'], ['Financement à organiser', 'financement_a_organiser']] },
+      { name: 'purchase_horizon', q: 'Dans quel délai ?', options: [['Immédiatement', 'immediat'], ['Dans les 3 mois', 'trois_mois'], ['Dans les 6 mois', 'six_mois'], ['Je me renseigne', 'en_reflexion']] },
     ],
+    // Comme le formulaire acquéreur universel de Prodigio OS : une information,
+    // pas de case (« non demandé » n'est pas « refusé »).
+    consent: {
+      mode: 'notice',
+      text: 'Vos coordonnées servent uniquement à vous envoyer la brochure et à organiser une visite. Elles ne sont jamais revendues.',
+    },
   },
 }
 
@@ -452,5 +467,4 @@ export const contactStep = {
     { name: 'telephone', label: 'Téléphone', type: 'tel', autoComplete: 'tel', required: true },
     { name: 'email', label: 'Email', type: 'email', autoComplete: 'email', required: true },
   ],
-  consent: 'J’accepte que PRODIGIO me recontacte au sujet de ma demande. Mes données ne sont jamais revendues.',
 }

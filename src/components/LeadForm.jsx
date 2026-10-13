@@ -19,6 +19,9 @@ function campaignParams() {
   }
 }
 
+// Option : chaîne simple, ou paire [libellé affiché, code Prodigio OS].
+const asOption = (o) => (Array.isArray(o) ? { label: o[0], code: o[1] } : { label: o, code: o })
+
 function whatsappLink(kind, answers) {
   const lines = Object.entries(answers)
     .filter(([k]) => !['email', 'telephone'].includes(k))
@@ -28,16 +31,24 @@ function whatsappLink(kind, answers) {
 }
 
 // Questionnaire en plusieurs étapes : une question par écran, avance au clic,
-// puis coordonnées. Envoi vers /api/lead (fonction Vercel), repli WhatsApp.
+// puis coordonnées. Envoi vers /api/lead, qui dépose la demande dans Prodigio OS.
+// Repli WhatsApp si l'envoi échoue ou si le bien n'est pas encore dans l'OS.
 export default function LeadForm({ kind, config, prefill }) {
   const steps = config.steps
   const total = steps.length + 1
   const [step, setStep] = useState(0)
-  const [answers, setAnswers] = useState({})
+  const [answers, setAnswers] = useState({}) // libellés affichés
+  const [codes, setCodes] = useState({}) // codes Prodigio OS
+  const [honeypot, setHoneypot] = useState('')
+  // Clé d'idempotence : un double clic ou un renvoi ne crée jamais deux dossiers.
+  const [idempotencyKey] = useState(() =>
+    typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+  )
   const [contact, setContact] = useState({ prenom: '', nom: '', telephone: '', email: '' })
   const [touched, setTouched] = useState({})
   const [consent, setConsent] = useState(false)
-  const [status, setStatus] = useState('idle') // idle | sending | done | error
+  const [status, setStatus] = useState('idle') // idle | sending | done | error | manual
+  const consentMode = config.consent?.mode || 'checkbox'
   const headingRef = useRef(null)
   const uid = useId()
 
@@ -45,15 +56,18 @@ export default function LeadForm({ kind, config, prefill }) {
   useEffect(() => {
     if (!prefill) return
     const first = steps[0]
+    const opt = first.options.map(asOption).find((o) => o.label === prefill.value)
     setAnswers((a) => ({ ...a, [first.name]: prefill.value }))
+    setCodes((c) => ({ ...c, [first.name]: opt ? opt.code : '' }))
     setStep(1)
   }, [prefill, steps])
 
   const current = steps[step]
   const isContact = step === steps.length
 
-  const choose = (name, value) => {
-    setAnswers((a) => ({ ...a, [name]: value }))
+  const choose = (name, opt) => {
+    setAnswers((a) => ({ ...a, [name]: opt.label }))
+    setCodes((c) => ({ ...c, [name]: opt.code }))
     setStep((s) => s + 1)
   }
 
@@ -63,7 +77,8 @@ export default function LeadForm({ kind, config, prefill }) {
     telephone: contact.telephone.replace(/\D/g, '').length < 9 && 'Indiquez un numéro de téléphone valide.',
     email: !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email) && 'Indiquez une adresse email valide (ex. nom@domaine.fr).',
   }
-  const hasErrors = Object.values(errors).some(Boolean) || !consent
+  const consentOk = consentMode !== 'checkbox' || consent
+  const hasErrors = Object.values(errors).some(Boolean) || !consentOk
 
   async function submit(e) {
     e.preventDefault()
@@ -76,10 +91,15 @@ export default function LeadForm({ kind, config, prefill }) {
     setStatus('sending')
     const payload = {
       form: kind,
-      answers: { ...answers, ...contact },
-      page: window.location.pathname,
+      idempotencyKey,
+      answers,
+      codes,
+      contact,
+      consent: { mode: consentMode, given: consentMode === 'checkbox' ? consent : null, text: config.consent?.text || '' },
       campaign: campaignParams(),
-      sentAt: new Date().toISOString(),
+      originUrl: window.location.href,
+      referrer: document.referrer || '',
+      website: honeypot,
     }
     try {
       const res = await fetch('/api/lead', {
@@ -87,6 +107,11 @@ export default function LeadForm({ kind, config, prefill }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       })
+      const data = await res.json().catch(() => ({}))
+      if (res.ok && data.routed === false) {
+        setStatus('manual')
+        return
+      }
       if (!res.ok) throw new Error(String(res.status))
       window.fbq?.('track', 'Lead', { content_name: kind })
       setStatus('done')
@@ -99,17 +124,20 @@ export default function LeadForm({ kind, config, prefill }) {
     if (step > 0 || status !== 'idle') headingRef.current?.focus()
   }, [step, status])
 
-  if (status === 'done' || status === 'error') {
+  if (status === 'done' || status === 'error' || status === 'manual') {
     const ok = status === 'done'
+    const manual = status === 'manual'
     return (
       <div className="border border-bone/15 bg-ink-soft p-7 sm:p-10" role="status" aria-live="polite">
         <p ref={headingRef} tabIndex={-1} className="font-serif text-3xl leading-tight text-bone sm:text-4xl">
-          {ok ? config.success.title : 'L’envoi n’a pas abouti.'}
+          {ok ? config.success.title : manual ? 'Merci. Victor vous répond directement.' : 'L’envoi n’a pas abouti.'}
         </p>
         <p className="mt-4 max-w-md leading-relaxed text-mist">
           {ok
             ? config.success.text
-            : 'Votre connexion ou notre serveur a refusé l’envoi. Vos réponses sont prêtes : envoyez-les en un clic à Victor sur WhatsApp.'}
+            : manual
+              ? 'Pour ce bien, les dossiers sont transmis à la main. Vos réponses sont prêtes : envoyez-les en un clic à Victor sur WhatsApp.'
+              : 'Votre connexion ou notre serveur a refusé l’envoi. Vos réponses sont prêtes : envoyez-les en un clic à Victor sur WhatsApp.'}
         </p>
         <a href={whatsappLink(kind, { ...answers, prenom: contact.prenom })} target="_blank" rel="noopener noreferrer" className="btn-gold mt-8">
           Écrire à Victor sur WhatsApp <span className="arrow">→</span>
@@ -150,11 +178,11 @@ export default function LeadForm({ kind, config, prefill }) {
                 {current.q}
               </legend>
               <div className="mt-7 grid gap-3 sm:grid-cols-2">
-                {current.options.map((opt) => {
-                  const selected = answers[current.name] === opt
+                {current.options.map(asOption).map((opt) => {
+                  const selected = answers[current.name] === opt.label
                   return (
                     <button
-                      key={opt}
+                      key={opt.label}
                       type="button"
                       onClick={() => choose(current.name, opt)}
                       aria-pressed={selected}
@@ -162,7 +190,7 @@ export default function LeadForm({ kind, config, prefill }) {
                         selected ? 'border-gold bg-gold/10 text-bone' : 'border-bone/20 text-bone/90 hover:border-gold/70 hover:bg-bone/[0.03]'
                       }`}
                     >
-                      {opt}
+                      {opt.label}
                       <span className="text-gold opacity-0 transition-opacity duration-200 group-hover:opacity-100" aria-hidden="true">
                         →
                       </span>
@@ -189,7 +217,10 @@ export default function LeadForm({ kind, config, prefill }) {
                 autoComplete={current.input.autoComplete}
                 placeholder={current.input.placeholder}
                 value={answers[current.name] || ''}
-                onChange={(e) => setAnswers((a) => ({ ...a, [current.name]: e.target.value }))}
+                onChange={(e) => {
+                  setAnswers((a) => ({ ...a, [current.name]: e.target.value }))
+                  setCodes((c) => ({ ...c, [current.name]: e.target.value }))
+                }}
                 className="mt-7 min-h-[56px] w-full border-b border-bone/30 bg-transparent px-1 text-lg text-bone placeholder:text-bone/40 focus:border-gold focus:outline-none"
               />
               <button type="submit" className="btn-gold mt-8" disabled={!(answers[current.name] || '').trim()}>
@@ -199,7 +230,7 @@ export default function LeadForm({ kind, config, prefill }) {
           )}
 
           {isContact && (
-            <form onSubmit={submit} noValidate>
+            <form onSubmit={submit} noValidate className="relative">
               <p ref={headingRef} tabIndex={-1} className="font-serif text-[1.75rem] leading-tight text-bone outline-none sm:text-3xl">
                 {contactStep.q}
               </p>
@@ -236,20 +267,33 @@ export default function LeadForm({ kind, config, prefill }) {
                   )
                 })}
               </div>
-              <label htmlFor={`${uid}-consent`} className="mt-7 flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-mist">
-                <input
-                  id={`${uid}-consent`}
-                  type="checkbox"
-                  checked={consent}
-                  onChange={(e) => setConsent(e.target.checked)}
-                  className="mt-1 h-5 w-5 shrink-0 cursor-pointer accent-[#C9AE7C]"
-                />
-                {contactStep.consent}
-              </label>
-              {touched.consent && !consent && (
-                <p role="alert" className="mt-2 text-sm text-[#E0866B]">
-                  Cochez la case pour que nous puissions vous recontacter.
-                </p>
+              {/* Champ piège invisible : seuls les robots le remplissent. */}
+              <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+                <label>
+                  Site web
+                  <input type="text" tabIndex={-1} autoComplete="off" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} />
+                </label>
+              </div>
+              {consentMode === 'checkbox' ? (
+                <>
+                  <label htmlFor={`${uid}-consent`} className="mt-7 flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-mist">
+                    <input
+                      id={`${uid}-consent`}
+                      type="checkbox"
+                      checked={consent}
+                      onChange={(e) => setConsent(e.target.checked)}
+                      className="mt-1 h-5 w-5 shrink-0 cursor-pointer accent-[#C9AE7C]"
+                    />
+                    {config.consent.text}
+                  </label>
+                  {touched.consent && !consent && (
+                    <p role="alert" className="mt-2 text-sm text-[#E0866B]">
+                      Cochez la case pour que nous puissions vous recontacter.
+                    </p>
+                  )}
+                </>
+              ) : (
+                <p className="mt-7 text-sm leading-relaxed text-mist">{config.consent?.text}</p>
               )}
               <button type="submit" className="btn-gold mt-8 w-full sm:w-auto" disabled={status === 'sending'}>
                 {status === 'sending' ? 'Envoi en cours…' : config.submit}
