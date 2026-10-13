@@ -1,241 +1,97 @@
 // ====================================================================
 //  PRÉ-RENDU STATIQUE · PRODIGIO
-//  Exécuté après `vite build`. Pour chaque route publique (/, /agence,
-//  /proprietaire), on génère un vrai fichier HTML : contenu textuel réel
+//  Exécuté après `vite build`. Pour chaque route publique (/, /vendre,
+//  /acheter), on génère un vrai fichier HTML : contenu textuel réel
 //  + balises SEO propres (title, description, canonical, Open Graph…).
-//
-//  But : les robots d'indexation, les aperçus de lien et les navigateurs
-//  sans JavaScript voient une page COMPLÈTE, plus jamais un spinner vide.
-//  React reprend la main au chargement et remplace ce contenu par la
-//  version interactive (createRoot().render() écrase #root).
+//  React reprend la main au chargement (createRoot().render() écrase #root).
 // ====================================================================
 
 import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 
-import { common, profiles, comparisons } from '../src/data/content.js'
+import { brand, buy, founders, home, properties, proof, sell, story } from '../src/data/site.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const DIST = join(__dirname, '..', 'dist')
 const SITE = 'https://www.prodigio.fr'
 const OG_IMAGE = `${SITE}/og-cover.png`
 
-/* ---------- échappement ---------- */
-const esc = (s = '') =>
-  String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+const esc = (s = '') => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 const escAttr = (s = '') => esc(s).replace(/"/g, '&quot;')
-const nl2br = (s = '') => esc(s).replace(/\n/g, '<br>')
+const lines = (t) => (Array.isArray(t) ? t : String(t).split('\n')).map(esc).join('<br>')
 
-/* ---------- styles inline (rendu correct avant CSS/JS) ---------- */
+/* ---------- styles inline (lisible avant CSS/JS) ---------- */
 const S = {
-  wrap: 'max-width:900px;margin:0 auto;padding:64px 24px 96px;color:#EDEDEC;font-family:Jost,system-ui,-apple-system,sans-serif;font-weight:300;line-height:1.7',
-  brand: 'text-align:center;font-family:"Cormorant Garamond",Georgia,serif;letter-spacing:.42em;text-indent:.42em;text-transform:uppercase;font-size:26px;color:#EDEDEC',
-  baseline: 'text-align:center;font-size:11px;letter-spacing:.36em;text-transform:uppercase;color:rgba(237,237,236,.5);margin-top:8px',
+  wrap: 'max-width:900px;margin:0 auto;padding:64px 24px 96px;color:#F3EFE8;background:#0A0A0B;font-family:Jost,system-ui,sans-serif;font-weight:300;line-height:1.7',
+  brand: 'font-family:"Cormorant Garamond",Georgia,serif;letter-spacing:.38em;font-size:22px;color:#F3EFE8;text-decoration:none',
+  nav: 'margin:12px 0 0;font-size:12px;letter-spacing:.22em;text-transform:uppercase',
+  a: 'color:#C9AE7C;margin-right:20px',
   eyebrow: 'font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:#C9AE7C;margin:56px 0 14px',
-  h1: 'font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;font-size:clamp(34px,6vw,64px);line-height:1.08;margin:0 0 16px',
-  h2: 'font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;font-size:clamp(26px,4vw,42px);line-height:1.15;margin:0 0 14px',
-  h3: 'font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:22px;color:#EDEDEC;margin:0 0 6px',
-  lead: 'font-size:20px;color:rgba(237,237,236,.75);margin:0 0 12px',
-  p: 'font-size:17px;color:rgba(237,237,236,.72);margin:0 0 14px',
-  gold: 'color:#C9AE7C',
+  h1: 'font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;font-size:clamp(36px,6vw,64px);line-height:1.05;margin:0 0 16px',
+  h2: 'font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;font-size:clamp(28px,4vw,42px);line-height:1.12;margin:0 0 14px',
+  h3: 'font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:24px;margin:22px 0 6px',
+  p: 'font-size:17px;color:rgba(243,239,232,.78);margin:0 0 14px',
 }
+const sec = (eyebrow, title, inner, h = 'h2') =>
+  `<section>${eyebrow ? `<div style="${S.eyebrow}">${esc(eyebrow)}</div>` : ''}<${h} style="${S[h]}">${lines(title)}</${h}>${inner}</section>`
+const p = (t) => `<p style="${S.p}">${esc(t)}</p>`
+const h3 = (t) => `<h3 style="${S.h3}">${esc(t)}</h3>`
+const shell = (inner) => `<div style="${S.wrap}">
+  <header><a href="/" style="${S.brand}">${esc(brand.name)}</a>
+  <nav style="${S.nav}"><a href="/vendre" style="${S.a}">Vendre</a><a href="/acheter" style="${S.a}">Acheter</a><a href="${brand.whatsapp}" style="${S.a}">WhatsApp</a></nav></header>
+  ${inner}</div>`
 
-const section = (inner) => `<section style="margin:0 0 8px">${inner}</section>`
-const eyebrow = (t) => (t ? `<div style="${S.eyebrow}">${esc(t)}</div>` : '')
+const proofBlock = () =>
+  sec(proof.eyebrow, proof.title, p(proof.context) +
+    p(`${proof.before.label} : ${proof.before.items.map(([v, l]) => `${v} ${l}`).join(', ')}.`) +
+    p(`${proof.after.label} : ${proof.after.items.map((s) => `${s.prefix}${s.value}${s.suffix} ${s.label}`).join(', ')}.`) +
+    p(proof.citiesNote))
+const storyBlock = () => sec(story.eyebrow, story.title, story.acts.map((a) => h3(a.label) + p(a.text)).join(''))
+const propertyBlock = (pr) =>
+  `<article>${h3(`${pr.name} · ${pr.place} · ${pr.status}`)}${p(pr.hook)}${p(pr.text)}${p(pr.facts.map(([k, v]) => `${k} : ${v}`).join(' · '))}</article>`
 
-/* ---------- rendu des blocs communs ---------- */
-function methodBlock() {
-  const m = common.method
-  const steps = m.steps
-    .map(
-      (s) =>
-        `<div style="margin:0 0 18px"><h3 style="${S.h3}"><span style="${S.gold}">${esc(
-          s.index,
-        )}</span> ${esc(s.name)}</h3><p style="${S.p}">${esc(s.text)}</p></div>`,
-    )
-    .join('')
-  return section(
-    `${eyebrow(m.eyebrow)}<h2 style="${S.h2}">${esc(m.title)}</h2><p style="${S.lead}">${esc(
-      m.lead,
-    )}</p><p style="${S.p}">${esc(m.intro)}</p>${steps}<p style="${S.p}"><em style="${
-      S.gold
-    }">${esc(m.result)}</em></p>`,
+function homeBody() {
+  const h = home.hero
+  return shell(
+    sec(h.eyebrow, h.lines, p(h.sub) + `<p style="${S.p}"><a href="/vendre" style="${S.a}">Je vends un bien</a><a href="/acheter" style="${S.a}">Je cherche un bien</a></p>`, 'h1') +
+    sec(home.doors.eyebrow, home.doors.title,
+      h3(home.doors.sell.label) + p(home.doors.sell.title.replace('\n', ' ')) + p(home.doors.sell.text) +
+      h3(home.doors.buy.label) + p(home.doors.buy.title.replace('\n', ' ')) + p(home.doors.buy.text)) +
+    proofBlock() +
+    sec(null, `${home.manifesto.a}\n${home.manifesto.b}`, p(home.manifesto.sub)) +
+    sec(home.properties.eyebrow, home.properties.title, properties.map(propertyBlock).join('')) +
+    storyBlock() +
+    sec(founders.eyebrow, founders.title, founders.people.map((f) => h3(`${f.name} · ${f.role}`) + p(f.text)).join('')),
   )
 }
 
-function proofBlock() {
-  const p = common.proof
-  const stats = p.stats
-    .map(
-      (s) =>
-        `<li style="margin:0 0 6px"><strong style="font-family:'Cormorant Garamond',Georgia,serif;font-size:28px;${S.gold}">${esc(
-          s.value,
-        )}</strong> · ${esc(s.label)}</li>`,
-    )
-    .join('')
-  return section(
-    `${eyebrow(p.eyebrow)}<h2 style="${S.h2}">${esc(p.title)}</h2><p style="${S.lead}">${esc(
-      p.subtitle,
-    )}</p><p style="${S.p}"><em style="${S.gold}">${esc(
-      p.period,
-    )}</em></p><ul style="list-style:none;padding:0;margin:0 0 14px">${stats}</ul><p style="${
-      S.p
-    }">${esc(p.footnote)}</p>`,
+function sellBody() {
+  const h = sell.hero
+  return shell(
+    sec(h.eyebrow, h.lines, p(h.sub), 'h1') +
+    sec(sell.problem.eyebrow, sell.problem.title, p(sell.problem.text) + sell.problem.stats.map((s) => p(`${s.big} : ${s.text}`)).join('')) +
+    sec(sell.method.eyebrow, sell.method.title, sell.method.steps.map((s) => h3(`${s.n}. ${s.name} : ${s.title}`) + p(s.text)).join('')) +
+    proofBlock() +
+    sec(sell.benefits.eyebrow, 'Ce que ça change pour vous', sell.benefits.items.map((b) => h3(b.title) + p(b.text)).join('')) +
+    sec(sell.model.eyebrow, sell.model.title, sell.model.items.map((m) => h3(m.title) + p(m.text)).join('')) +
+    sec(sell.comparison.eyebrow, sell.comparison.title, sell.comparison.rows.map(([l, a, b]) => p(`${l} : ${a} / PRODIGIO : ${b}`)).join('')) +
+    sec(null, sell.agencies.title, p(sell.agencies.text), 'h2') +
+    storyBlock() +
+    sec('Questions fréquentes', 'Ce que l’on nous demande.', sell.faq.map(([q, a]) => h3(q) + p(a)).join('')) +
+    sec(sell.form.eyebrow, sell.form.title, p(sell.form.text)),
   )
 }
 
-function whyBlock() {
-  const w = common.why
-  const reasons = w.reasons
-    .map(
-      (r) =>
-        `<div style="margin:0 0 18px"><h3 style="${S.h3}">${esc(r.title)}</h3><p style="${
-          S.p
-        }">${esc(r.text)}</p></div>`,
-    )
-    .join('')
-  return section(`${eyebrow(w.eyebrow)}<h2 style="${S.h2}">${esc(w.title)}</h2>${reasons}`)
-}
-
-function comparisonBlock(key) {
-  const c = comparisons[key]
-  if (!c) return ''
-  const cell = (v) => (v === true ? 'Oui' : v === false ? 'Non' : esc(v))
-  const rows = c.rows
-    .map(
-      (r) =>
-        `<tr><th scope="row" style="text-align:left;font-weight:400;padding:8px 12px 8px 0;color:rgba(237,237,236,.6);border-top:1px solid rgba(255,255,255,.08)">${esc(
-          r.label,
-        )}</th><td style="padding:8px 12px;color:rgba(237,237,236,.72);border-top:1px solid rgba(255,255,255,.08)">${cell(
-          r.classic,
-        )}</td><td style="padding:8px 12px;color:#C9AE7C;border-top:1px solid rgba(255,255,255,.08)">${cell(
-          r.prodigio,
-        )}</td></tr>`,
-    )
-    .join('')
-  return section(
-    `${eyebrow(c.eyebrow)}<h2 style="${S.h2}">${esc(c.title)}</h2><p style="${S.lead}">${esc(
-      c.lead,
-    )}</p><table style="width:100%;border-collapse:collapse;font-size:15px"><thead><tr><th></th><th scope="col" style="text-align:left;padding:0 12px 8px 0;color:rgba(237,237,236,.6)">${esc(
-      c.columns.classic,
-    )}</th><th scope="col" style="text-align:left;padding:0 12px 8px;${S.gold}">${esc(
-      c.columns.prodigio,
-    )}</th></tr></thead><tbody>${rows}</tbody></table>`,
+function buyBody() {
+  const h = buy.hero
+  return shell(
+    sec(h.eyebrow, h.lines, p(h.sub), 'h1') +
+    sec(buy.list.eyebrow, buy.list.title, properties.map(propertyBlock).join('')) +
+    sec(buy.steps.eyebrow, buy.steps.title, buy.steps.items.map((s) => h3(s.title) + p(s.text)).join('')) +
+    sec(buy.regions.eyebrow, buy.regions.title, buy.regions.items.map((r) => h3(r.name) + p(r.text)).join('')) +
+    sec(buy.form.eyebrow, buy.form.title, p(buy.form.text)),
   )
-}
-
-function founderBlock() {
-  const f = common.founder
-  return section(
-    `${eyebrow(f.eyebrow)}<h2 style="${S.h2}">${esc(f.name)}</h2><p style="${S.lead}">${esc(
-      f.role,
-    )}</p><p style="${S.p}">${esc(f.bio)}</p><p style="${S.p}"><em style="${S.gold}">${esc(
-      f.quote,
-    )}</em></p>`,
-  )
-}
-
-function ctaBlock() {
-  const c = common.finalCta
-  return section(
-    `${eyebrow(c.eyebrow)}<h2 style="${S.h2}">${esc(c.title)}</h2><p style="${S.lead}">${esc(
-      c.subtitle,
-    )}</p><p style="${S.p}"><a href="${escAttr(common.contact.url)}" style="${
-      S.gold
-    };text-decoration:none">${esc(c.button)} →</a></p><p style="${S.baseline}">${esc(
-      c.signature,
-    )}</p>`,
-  )
-}
-
-function manifestoBlock() {
-  const m = common.manifesto
-  return section(
-    `<h2 style="${S.h2}">${esc(m.line1)}<br><em style="${S.gold}">${esc(
-      m.line2,
-    )}</em></h2><p style="${S.lead}">${esc(m.sub)}</p>`,
-  )
-}
-
-/* ---------- rendu d'une page profil ---------- */
-function profileBody(key) {
-  const pr = profiles[key]
-  const hero = pr.hero
-  const problem = pr.problem
-  const model = pr.model
-  const modelPoints = model.points
-    .map(
-      (pt) =>
-        `<li style="margin:0 0 6px"><strong style="${S.gold}">${esc(
-          pt.label,
-        )}</strong> · ${esc(pt.value)}</li>`,
-    )
-    .join('')
-
-  return `<div style="${S.wrap}">
-    <header><div style="${S.brand}">${esc(common.brand.name)}</div><div style="${
-    S.baseline
-  }">${esc(common.brand.baseline)}</div></header>
-    ${section(
-      `${eyebrow(hero.eyebrow)}<h1 style="${S.h1}">${nl2br(hero.title)}</h1><p style="${
-        S.lead
-      }">${esc(hero.subtitle)}</p>`,
-    )}
-    ${section(
-      `${eyebrow(problem.eyebrow)}<h2 style="${S.h2}">${esc(problem.title)}</h2><p style="${
-        S.p
-      }">${esc(problem.body)}</p>`,
-    )}
-    ${manifestoBlock()}
-    ${methodBlock()}
-    ${proofBlock()}
-    ${whyBlock()}
-    ${section(
-      `${eyebrow(model.eyebrow)}<h2 style="${S.h2}">${esc(model.title)}</h2><p style="${
-        S.p
-      }">${esc(model.body)}</p><ul style="list-style:none;padding:0;margin:0 0 8px">${modelPoints}</ul><p style="${
-        S.p
-      }">${esc(pr.differenceAccent)}</p>`,
-    )}
-    ${comparisonBlock(key)}
-    ${founderBlock()}
-    ${ctaBlock()}
-  </div>`
-}
-
-/* ---------- rendu de l'écran d'accueil ---------- */
-function gateBody() {
-  const g = common.gate
-  const cards = ['agence', 'proprietaire']
-    .map((key) => {
-      const pr = profiles[key]
-      return `<div style="margin:0 0 18px"><h3 style="${S.h3}"><a href="/${key}" style="color:#EDEDEC;text-decoration:none">${esc(
-        pr.label,
-      )}</a></h3><p style="${S.p}"><em style="${S.gold}">${esc(
-        pr.gateTagline,
-      )}</em> ${esc(pr.hero.subtitle)}</p></div>`
-    })
-    .join('')
-
-  return `<div style="${S.wrap}">
-    <header><div style="${S.brand}">${esc(common.brand.name)}</div><div style="${
-    S.baseline
-  }">${esc(common.brand.baseline)}</div></header>
-    ${section(
-      `<h1 style="${S.h1}">${esc(g.question)}</h1><p style="${S.lead}">${esc(
-        g.subtitle,
-      )}</p>${cards}`,
-    )}
-    ${manifestoBlock()}
-    ${section(
-      `${eyebrow(common.method.eyebrow)}<h2 style="${S.h2}">${esc(
-        common.method.title,
-      )}</h2><p style="${S.p}">${esc(common.method.intro)}</p>`,
-    )}
-    ${proofBlock()}
-    ${ctaBlock()}
-  </div>`
 }
 
 /* ---------- injection SEO dans le <head> ---------- */
@@ -272,28 +128,9 @@ function setBody(html, bodyHtml) {
 
 /* ---------- pages à générer ---------- */
 const PAGES = [
-  {
-    file: 'index.html',
-    url: `${SITE}/`,
-    title: 'PRODIGIO · Immobilier d’exception',
-    description:
-      'PRODIGIO transforme chaque bien d’exception en marque : branding, acquisition ciblée et accompagnement jusqu’à la vente. On ne met pas votre bien en vente, on le vend.',
-    body: gateBody(),
-  },
-  {
-    file: 'agence.html',
-    url: `${SITE}/agence`,
-    title: 'Agences immobilières de luxe : la machine d’acquisition · PRODIGIO',
-    description: profiles.agence.hero.subtitle,
-    body: profileBody('agence'),
-  },
-  {
-    file: 'proprietaire.html',
-    url: `${SITE}/proprietaire`,
-    title: 'Vendre votre bien d’exception avec Prodigio',
-    description: profiles.proprietaire.hero.subtitle,
-    body: profileBody('proprietaire'),
-  },
+  { file: 'index.html', url: `${SITE}/`, ...home.seo, body: homeBody() },
+  { file: 'vendre.html', url: `${SITE}/vendre`, ...sell.seo, body: sellBody() },
+  { file: 'acheter.html', url: `${SITE}/acheter`, ...buy.seo, body: buyBody() },
 ]
 
 /* ---------- exécution ---------- */

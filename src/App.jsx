@@ -1,135 +1,78 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-
-import ProfileGate from './components/ProfileGate'
 import Header from './components/Header'
-import Hero from './sections/Hero'
-import Problem from './sections/Problem'
-import Manifesto from './sections/Manifesto'
-import Method from './sections/Method'
-import Proof from './sections/Proof'
-import Model from './sections/Model'
-import WhyUs from './sections/WhyUs'
-import Comparison from './sections/Comparison'
-import Founder from './sections/Founder'
-import FinalCTA from './sections/FinalCTA'
+import Footer from './components/Footer'
+import Home from './pages/Home'
+import Sell from './pages/Sell'
+import Buy from './pages/Buy'
+import { RouterProvider, scrollToId, useRouter } from './lib/router'
+import { initSmoothScroll } from './lib/smooth'
+import { buy, home, sell } from './data/site'
 
-import { profiles } from './data/content'
+const SITE = 'https://www.prodigio.fr'
+const PAGES = {
+  '/': { Component: Home, seo: home.seo },
+  '/vendre': { Component: Sell, seo: sell.seo },
+  '/acheter': { Component: Buy, seo: buy.seo },
+}
 
-// Déduit le profil actif depuis l'URL : /agence, /proprietaire…
-// Retourne null (écran d'accueil) si le chemin ne correspond à aucun profil.
-function profileFromPath() {
-  const key = window.location.pathname.replace(/^\/+|\/+$/g, '')
-  return key && profiles[key] ? key : null
+// Titre et balises de partage à jour à chaque page (alignés sur scripts/prerender.mjs).
+function useSeo(path) {
+  useEffect(() => {
+    const { seo } = PAGES[path]
+    const url = SITE + (path === '/' ? '/' : path)
+    document.title = seo.title
+    const set = (sel, attr, val) => document.head.querySelector(sel)?.setAttribute(attr, val)
+    set('meta[name="description"]', 'content', seo.description)
+    set('link[rel="canonical"]', 'href', url)
+    set('meta[property="og:title"]', 'content', seo.title)
+    set('meta[property="og:description"]', 'content', seo.description)
+    set('meta[property="og:url"]', 'content', url)
+    set('meta[name="twitter:title"]', 'content', seo.title)
+    set('meta[name="twitter:description"]', 'content', seo.description)
+  }, [path])
+}
+
+function Pages() {
+  const { path } = useRouter()
+  const { Component } = PAGES[path]
+  useSeo(path)
+
+  // Arrivée directe sur une ancre (/vendre#eligibilite depuis une publicité).
+  useEffect(() => {
+    const id = window.location.hash.slice(1)
+    if (id) setTimeout(() => scrollToId(id), 600)
+  }, [])
+
+  return (
+    <>
+      <a href="#contenu" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:bg-gold focus:px-4 focus:py-3 focus:text-ink">
+        Aller au contenu
+      </a>
+      <Header />
+      <AnimatePresence mode="wait">
+        <motion.main
+          id="contenu"
+          key={path}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <Component />
+        </motion.main>
+      </AnimatePresence>
+      <Footer />
+      <div className="grain" aria-hidden="true" />
+    </>
+  )
 }
 
 export default function App() {
-  // `activeProfile` à null = écran d'accueil. Initialisé depuis l'URL
-  // (permet le lien direct vers /agence ou /proprietaire).
-  const [activeProfile, setActiveProfile] = useState(() => profileFromPath())
-
-  // Navigue vers un profil et met l'URL à jour (lien partageable + bouton retour).
-  const goToProfile = useCallback((key, { scroll = false } = {}) => {
-    setActiveProfile(key)
-    if (window.location.pathname !== `/${key}`) {
-      window.history.pushState({}, '', `/${key}`)
-    }
-    if (scroll) window.scrollTo({ top: 0 })
-  }, [])
-
-  // Depuis l'écran d'accueil → on entre dans le site (et on remonte en haut).
-  const handleSelect = useCallback((key) => goToProfile(key, { scroll: true }), [goToProfile])
-
-  // Depuis le header → on change de page sans casser le défilement (morph en place).
-  const handleChangeProfile = useCallback((key) => goToProfile(key), [goToProfile])
-
-  // Retour à l'écran d'accueil.
-  const handleBackToGate = useCallback(() => {
-    setActiveProfile(null)
-    if (window.location.pathname !== '/') {
-      window.history.pushState({}, '', '/')
-    }
-    window.scrollTo({ top: 0 })
-  }, [])
-
-  // Synchronise l'état avec les boutons précédent/suivant du navigateur.
-  useEffect(() => {
-    const onPop = () => setActiveProfile(profileFromPath())
-    window.addEventListener('popstate', onPop)
-    return () => window.removeEventListener('popstate', onPop)
-  }, [])
-
-  // Met à jour le titre et les balises SEO à chaque changement de page (les
-  // valeurs doivent rester alignées sur le pré-rendu, scripts/prerender.mjs).
-  useEffect(() => {
-    const site = 'https://www.prodigio.fr'
-    const seo = {
-      gate: {
-        title: 'PRODIGIO · Immobilier d’exception',
-        description:
-          'PRODIGIO transforme chaque bien d’exception en marque : branding, acquisition ciblée et accompagnement jusqu’à la vente. On ne met pas votre bien en vente, on le vend.',
-        path: '/',
-      },
-      agence: {
-        title: 'Agences immobilières de luxe : la machine d’acquisition · PRODIGIO',
-        description: profiles.agence.hero.subtitle,
-        path: '/agence',
-      },
-      proprietaire: {
-        title: 'Vendre votre bien d’exception avec Prodigio',
-        description: profiles.proprietaire.hero.subtitle,
-        path: '/proprietaire',
-      },
-    }
-    const s = (activeProfile && seo[activeProfile]) || seo.gate
-    const url = site + s.path
-    document.title = s.title
-    const set = (selector, attr, value) => {
-      const el = document.head.querySelector(selector)
-      if (el) el.setAttribute(attr, value)
-    }
-    set('meta[name="description"]', 'content', s.description)
-    set('link[rel="canonical"]', 'href', url)
-    set('meta[property="og:title"]', 'content', s.title)
-    set('meta[property="og:description"]', 'content', s.description)
-    set('meta[property="og:url"]', 'content', url)
-    set('meta[name="twitter:title"]', 'content', s.title)
-    set('meta[name="twitter:description"]', 'content', s.description)
-  }, [activeProfile])
-
-  const profile = activeProfile ? profiles[activeProfile] : null
-
+  useEffect(() => initSmoothScroll(), [])
   return (
-    <div className="relative min-h-[100svh] bg-ink">
-      <AnimatePresence mode="wait">
-        {!profile ? (
-          <ProfileGate key="gate" onSelect={handleSelect} />
-        ) : (
-          <motion.main
-            key="site"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <Header
-              activeProfile={activeProfile}
-              onChangeProfile={handleChangeProfile}
-              onBackToGate={handleBackToGate}
-            />
-
-            <Hero profile={profile} />
-            <Problem profile={profile} />
-            <Manifesto />
-            <Method />
-            <Proof />
-            <Model profile={profile} />
-            <WhyUs profile={profile} />
-            <Comparison profile={profile} />
-            <Founder />
-            <FinalCTA />
-          </motion.main>
-        )}
-      </AnimatePresence>
-    </div>
+    <RouterProvider>
+      <Pages />
+    </RouterProvider>
   )
 }

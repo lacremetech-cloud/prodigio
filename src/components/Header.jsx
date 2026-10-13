@@ -1,123 +1,131 @@
 import { useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
-import { common, profiles, profileOrder } from '../data/content'
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion'
+import { Link, useRouter } from '../lib/router'
+import { lockScroll } from '../lib/smooth'
+import { brand } from '../data/site'
 
-// ====================================================================
-//  Header discret — logo PRODIGIO + sélecteur de profil compact.
-//  Permet de changer de cible sans revenir à l'écran d'accueil.
-//  Devient « verre » dès que l'on scrolle un peu.
-// ====================================================================
-export default function Header({ activeProfile, onChangeProfile, onBackToGate }) {
+const EASE = [0.22, 1, 0.36, 1]
+const NAV = [
+  { to: '/vendre', label: 'Vendre' },
+  { to: '/acheter', label: 'Acheter' },
+  { to: '/acheter#biens', label: 'Nos biens' },
+]
+
+export function Logo({ className = '' }) {
+  return (
+    <span className={`flex items-center gap-3 ${className}`}>
+      <img src="/media/p-blanc.png" alt="" width="20" height="25" className="h-[25px] w-auto" />
+      <span className="font-serif text-[1.15rem] tracking-luxe text-bone">{brand.name}</span>
+    </span>
+  )
+}
+
+// En-tête : transparent sur le hero, verre sombre ensuite ; se masque quand
+// on descend et réapparaît dès qu'on remonte.
+export default function Header() {
+  const { path } = useRouter()
+  const { scrollY } = useScroll()
+  const [solid, setSolid] = useState(false)
+  const [hidden, setHidden] = useState(false)
   const [open, setOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
+
+  useMotionValueEvent(scrollY, 'change', (y) => {
+    const prev = scrollY.getPrevious() ?? 0
+    setSolid(y > 60)
+    setHidden(y > 400 && y > prev && !open)
+  })
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    lockScroll(open)
+    const onKey = (e) => e.key === 'Escape' && setOpen(false)
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open])
 
-  const current = profiles[activeProfile]
+  useEffect(() => setOpen(false), [path])
+
+  const cta =
+    path === '/acheter'
+      ? { to: '/acheter#brochure', label: 'Recevoir une brochure' }
+      : { to: '/vendre#eligibilite', label: 'Vendre avec PRODIGIO' }
 
   return (
-    <motion.header
-      initial={{ y: -40, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-700 ease-luxe
-        ${
-          scrolled
-            ? 'border-b border-white/10 bg-ink/70 py-3 backdrop-blur-xl'
-            : 'bg-transparent py-5'
+    <>
+      <motion.header
+        animate={{ y: hidden ? '-100%' : '0%' }}
+        transition={{ duration: 0.45, ease: EASE }}
+        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
+          solid || open ? 'border-b border-bone/10 bg-ink/80 backdrop-blur-xl' : 'bg-transparent'
         }`}
-    >
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6">
-        {/* Logo — ramène à l'écran d'accueil */}
-        <button
-          onClick={onBackToGate}
-          className="group flex flex-col items-start leading-none"
-          aria-label="Revenir à l'écran d'accueil"
-        >
-          <span className="font-display text-lg tracking-luxe text-paper">
-            {common.brand.name}
-          </span>
-          <span className="mt-1 hidden text-[0.55rem] uppercase tracking-wideluxe text-smoke-400 sm:block">
-            {common.brand.baseline}
-          </span>
-        </button>
+      >
+        <div className="wrap flex h-[72px] items-center justify-between">
+          <Link to="/" aria-label="PRODIGIO, accueil" className="min-h-[44px] content-center">
+            <Logo />
+          </Link>
 
-        {/* Sélecteur de profil compact */}
-        <div className="relative">
+          <nav aria-label="Navigation principale" className="hidden items-center gap-9 md:flex">
+            {NAV.map((n) => (
+              <Link key={n.to} to={n.to} className="link-underline py-2 text-[0.72rem] uppercase tracking-wideluxe text-bone/85 hover:text-bone">
+                {n.label}
+              </Link>
+            ))}
+            <Link to={cta.to} className="btn-line min-h-[44px] px-5">
+              {cta.label}
+            </Link>
+          </nav>
+
           <button
-            onClick={() => setOpen((v) => !v)}
-            className="glass flex items-center gap-3 px-5 py-2.5 text-[0.65rem] uppercase
-              tracking-wideluxe text-paper transition-all duration-500 ease-luxe
-              hover:border-white/40 hover:bg-white/[0.14]"
+            type="button"
+            onClick={() => setOpen((o) => !o)}
+            aria-expanded={open}
+            aria-controls="menu-mobile"
+            aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
+            className="relative flex h-11 w-11 cursor-pointer items-center justify-center md:hidden"
           >
-            <span>{current?.short}</span>
-            <motion.span
-              animate={{ rotate: open ? 180 : 0 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="text-smoke-200"
-            >
-              ⌄
-            </motion.span>
+            <span className={`absolute h-px w-6 bg-bone transition-transform duration-300 ${open ? 'rotate-45' : '-translate-y-[4px]'}`} />
+            <span className={`absolute h-px w-6 bg-bone transition-transform duration-300 ${open ? '-rotate-45' : 'translate-y-[4px]'}`} />
           </button>
-
-          <AnimatePresence>
-            {open && (
-              <>
-                {/* Zone de clic pour fermer */}
-                <div
-                  className="fixed inset-0 z-40"
-                  onClick={() => setOpen(false)}
-                />
-                <motion.div
-                  initial={{ opacity: 0, y: -8, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -8, scale: 0.98 }}
-                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                  className="absolute right-0 z-50 mt-3 w-60 overflow-hidden border border-white/15 bg-ink/85 p-2 backdrop-blur-2xl"
-                >
-                  {profileOrder.map((key) => {
-                    const p = profiles[key]
-                    const active = key === activeProfile
-                    return (
-                      <button
-                        key={key}
-                        onClick={() => {
-                          onChangeProfile(key)
-                          setOpen(false)
-                        }}
-                        className={`flex w-full items-center justify-between px-4 py-3 text-left
-                          text-sm font-light transition-colors duration-300
-                          ${active ? 'text-paper' : 'text-smoke-200/70 hover:text-paper'}`}
-                      >
-                        <span>{p.label}</span>
-                        {active && <span className="text-[0.6rem]">●</span>}
-                      </button>
-                    )
-                  })}
-
-                  <div className="hairline my-1" />
-
-                  <button
-                    onClick={() => {
-                      onBackToGate()
-                      setOpen(false)
-                    }}
-                    className="w-full px-4 py-3 text-left text-[0.65rem] uppercase
-                      tracking-wideluxe text-smoke-400 transition-colors duration-300 hover:text-paper"
-                  >
-                    ← Revenir à l’accueil
-                  </button>
-                </motion.div>
-              </>
-            )}
-          </AnimatePresence>
         </div>
-      </div>
-    </motion.header>
+      </motion.header>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            id="menu-mobile"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.25 } }}
+            className="fixed inset-0 z-40 flex flex-col bg-ink px-5 pb-10 pt-28 md:hidden"
+          >
+            <nav aria-label="Navigation mobile" className="flex flex-col">
+              {[{ to: '/', label: 'Accueil' }, ...NAV].map((n, i) => (
+                <motion.div
+                  key={n.to}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.05 + i * 0.06, ease: EASE }}
+                  className="border-b border-bone/10"
+                >
+                  <Link to={n.to} className="block py-5 font-serif text-4xl text-bone">
+                    {n.label}
+                  </Link>
+                </motion.div>
+              ))}
+            </nav>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }} className="mt-auto flex flex-col gap-3">
+              <Link to={cta.to} className="btn-gold">
+                {cta.label} <span className="arrow">→</span>
+              </Link>
+              <a href={brand.whatsapp} target="_blank" rel="noopener noreferrer" className="btn-line">
+                WhatsApp · {brand.phoneLabel}
+              </a>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   )
 }
