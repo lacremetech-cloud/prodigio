@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { brand, contactStep } from '../data/site'
+import { brand, contactStep, lienLanding } from '../data/site'
 
 const EASE = [0.22, 1, 0.36, 1]
 
@@ -20,7 +20,8 @@ function campaignParams() {
 }
 
 // Option : chaîne simple, ou paire [libellé affiché, code Prodigio OS].
-const asOption = (o) => (Array.isArray(o) ? { label: o[0], code: o[1] } : { label: o, code: o })
+const asOption = (o) =>
+  Array.isArray(o) ? { label: o[0], code: o[1], landing: o[2] } : { label: o, code: o }
 
 function whatsappLink(kind, answers) {
   const lines = Object.entries(answers)
@@ -66,6 +67,14 @@ export default function LeadForm({ kind, config, prefill }) {
   const isContact = step === steps.length
 
   const choose = (name, opt) => {
+    /* Un bien qui a sa landing n'est pas traite ici.
+       Poursuivre le questionnaire deposerait la demande par appel direct, sans
+       conversion Meta, sans alerte, sans e-mail de premier contact. On renvoie
+       donc vers le tunnel du bien, ou tout cela existe. Voir site.js. */
+    if (opt.landing) {
+      window.location.href = lienLanding(opt.landing, 'questionnaire')
+      return
+    }
     setAnswers((a) => ({ ...a, [name]: opt.label }))
     setCodes((c) => ({ ...c, [name]: opt.code }))
     setStep((s) => s + 1)

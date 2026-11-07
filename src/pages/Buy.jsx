@@ -5,7 +5,7 @@ import { FormSection } from '../sections/Shared'
 import Reveal, { Curtain, LineReveal } from '../components/Reveal'
 import { BgVideo, Img } from '../components/Media'
 import { scrollToId } from '../lib/router'
-import { buy, media, properties } from '../data/site'
+import { buy, lienLanding, media, properties } from '../data/site'
 
 const EASE = [0.22, 1, 0.36, 1]
 
@@ -74,7 +74,12 @@ function Property({ p, index, onBrochure }) {
                     {buy.list.brochure} <span className="arrow">→</span>
                   </button>
                   {p.site && (
-                    <a href={p.site} target="_blank" rel="noopener noreferrer" className="btn-line">
+                    <a
+                      href={lienLanding(p.site, 'carte-site')}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-line"
+                    >
                       {buy.list.site}
                     </a>
                   )}
@@ -142,8 +147,15 @@ export default function Buy() {
   const [prefill, setPrefill] = useState(null)
   const options = buy.form.steps[0].options.map((o) => (Array.isArray(o) ? o[0] : o))
 
-  // « Recevoir la brochure » : pré-sélectionne le bien et descend au questionnaire.
+  /* « Recevoir la brochure ».
+     Le bien a une landing : on y va, c'est la que la demande sera mesuree et
+     relancee. Sinon (recherche sans bien precis), le questionnaire local reste
+     le seul chemin, et il garde son repli WhatsApp. */
   const onBrochure = (p) => {
+    if (p.site) {
+      window.location.href = lienLanding(p.site, 'carte-brochure')
+      return
+    }
     const value = options.find((o) => o.startsWith(p.name)) || options[options.length - 1]
     setPrefill({ value })
     requestAnimationFrame(() => scrollToId(buy.form.id))

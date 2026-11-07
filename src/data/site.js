@@ -86,7 +86,7 @@ export const properties = [
     cover: m('airelles-facade-hiver'),
     gallery: [m('airelles-terrasse'), m('airelles-sejour'), m('airelles-chambre'), m('airelles-station')],
     video: null,
-    site: null,
+    site: 'https://les-airelles.prodigio.fr',
     note: 'Visuels 3D non contractuels.',
   },
   {
@@ -442,9 +442,19 @@ export const buy = {
       text: 'Nous vous envoyons la brochure et vous rappelons pour organiser la visite. Pour aller plus vite, écrivez à Victor sur WhatsApp.',
     },
     steps: [
-      // Le code du bien = son slug dans Prodigio OS (formulaire acquéreur actif).
-      // Sans slug (bien pas encore dans l'OS, autre recherche) : repli WhatsApp.
-      { name: 'slug', q: 'Quel bien vous intéresse ?', options: [['Maison Jean-Jaurès · Cassis', 'villa-jean-jaures'], ['Villa Verdun · Cassis', 'villa-verdun'], ['Les Airelles · Les 2 Alpes', ''], ['Une autre recherche', '']] },
+      // Deuxieme valeur : le slug du bien dans Prodigio OS. Troisieme : sa
+      // landing, quand il en a une.
+      //
+      // Un bien qui a une landing n'est plus traite ici : on y renvoie le
+      // visiteur. Tout le dispositif de mesure et de relance vit sur ce
+      // tunnel-la — conversion Meta, alerte, SMS, e-mail de premier contact,
+      // recapitulatif par bien. Ce questionnaire ecrit en base par appel
+      // direct et court-circuite l'ensemble : deux demandes en trois semaines,
+      // aucune remontee a Meta.
+      //
+      // « Une autre recherche » n'a pas de landing, par nature. C'est le seul
+      // cas que ce questionnaire traite encore, et il garde son repli WhatsApp.
+      { name: 'slug', q: 'Quel bien vous intéresse ?', options: [['Maison Jean-Jaurès · Cassis', 'villa-jean-jaures', 'https://villa-jeanjaures-cassis.vercel.app'], ['Villa Verdun · Cassis', 'villa-verdun', 'https://villa-verdun-cassis.vercel.app'], ['Les Airelles · Les 2 Alpes', 'les-airelles-aux-2-alpes', 'https://les-airelles.prodigio.fr'], ['Une autre recherche', '']] },
       { name: 'project_nature', q: 'Quel est votre projet ?', options: [['Résidence principale', 'residence_principale'], ['Résidence secondaire', 'residence_secondaire'], ['Investissement', 'investissement']] },
       { name: 'budget_band', q: 'Quel est votre budget ?', options: [['Moins de 800 000 €', 'moins_800k'], ['800 000 € à 1,2 M€', '800k_1_2m'], ['1,2 M€ à 2 M€', '1_2m_2m'], ['2 M€ à 3 M€', '2m_3m'], ['Plus de 3 M€', 'plus_3m']] },
       { name: 'financing', q: 'Comment financez-vous ce projet ?', options: [['Fonds propres', 'fonds_propres'], ['Accord bancaire obtenu', 'accord_bancaire'], ['Financement à organiser', 'financement_a_organiser']] },
@@ -457,6 +467,27 @@ export const buy = {
       text: 'Vos coordonnées servent uniquement à vous envoyer la brochure et à organiser une visite. Elles ne sont jamais revendues.',
     },
   },
+}
+
+/**
+ * Vers la landing d'un bien, marquee pour qu'on sache d'ou vient le visiteur.
+ *
+ * `utm_content` distingue le bouton clique : sans lui, « visiter le site » et
+ * « recevoir la brochure » seraient indiscernables dans les statistiques, et
+ * on ne saurait pas lequel des deux travaille.
+ */
+export function lienLanding(url, bouton) {
+  if (!url) return null
+  try {
+    const u = new URL(url)
+    u.searchParams.set('utm_source', 'prodigio-site')
+    u.searchParams.set('utm_medium', 'referral')
+    u.searchParams.set('utm_campaign', 'acheter')
+    if (bouton) u.searchParams.set('utm_content', bouton)
+    return u.toString()
+  } catch {
+    return url
+  }
 }
 
 export const contactStep = {
