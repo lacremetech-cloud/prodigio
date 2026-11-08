@@ -1,18 +1,48 @@
 {
   "redirects": [
-    { "source": "/agence", "destination": "/vendre", "permanent": true },
-    { "source": "/proprietaire", "destination": "/vendre", "permanent": true }
+    {
+      "source": "/airelles",
+      "destination": "https://les-airelles.prodigio.fr/?utm_source=organique&utm_medium=raccourci&utm_campaign=airelles",
+      "permanent": false
+    },
+    {
+      "source": "/agence",
+      "destination": "/vendre",
+      "permanent": true
+    },
+    {
+      "source": "/proprietaire",
+      "destination": "/vendre",
+      "permanent": true
+    }
   ],
   "headers": [
     {
       "source": "/media/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
+      ]
     }
   ],
   "rewrites": [
-    { "source": "/systeme", "destination": "/systeme.html" },
-    { "source": "/vendre", "destination": "/vendre.html" },
-    { "source": "/acheter", "destination": "/acheter.html" },
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
+    {
+      "source": "/systeme",
+      "destination": "/systeme.html"
+    },
+    {
+      "source": "/vendre",
+      "destination": "/vendre.html"
+    },
+    {
+      "source": "/acheter",
+      "destination": "/acheter.html"
+    },
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
   ]
 }

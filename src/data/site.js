@@ -30,7 +30,33 @@ export const media = { m, v }
 /* -------------------------------------------------------------------- */
 /*  LES BIENS                                                           */
 /* -------------------------------------------------------------------- */
+/* L'ORDRE DE CE TABLEAU EST L'ORDRE D'AFFICHAGE, partout : la rangee de la
+   page d'accueil comme la liste de /acheter le parcourent tel quel.
+
+   Le premier bien est donc le bien mis en avant. Les Airelles y est pendant la
+   campagne organique : c'est lui que les posts font chercher, il doit etre le
+   premier vu. A rendre sa place quand la mise en avant change de bien. */
 export const properties = [
+  {
+    slug: 'airelles',
+    status: 'En commercialisation',
+    name: 'Les Airelles',
+    place: 'Les 2 Alpes',
+    region: 'Isère',
+    hook: 'Sur la place de Venosc, un ancien hôtel devient onze appartements.',
+    text: 'Au cœur de la station, au pied des pistes, pour profiter de la montagne l’hiver comme l’été : le glacier culmine à 3 600 mètres et l’on y skie jusqu’en juillet. Des appartements de 59 à 140 m², presque tous avec terrasse, achetés hors taxes et confiés à un gestionnaire quand vous n’y êtes pas.',
+    facts: [
+      ['Disponibles', '9 appartements, de 59 à 140 m²'],
+      ['Prix', 'De 525 000 € à 1,2 M€ HT'],
+      ['Livraison', '2e semestre 2028'],
+      ['Atouts', 'Terrasses, pied des pistes, TVA récupérable'],
+    ],
+    cover: m('airelles-facade-hiver'),
+    gallery: [m('airelles-terrasse'), m('airelles-sejour'), m('airelles-chambre'), m('airelles-station')],
+    video: null,
+    site: 'https://les-airelles.prodigio.fr',
+    note: 'Visuels 3D non contractuels.',
+  },
   {
     slug: 'jean-jaures',
     status: 'En vente',
@@ -68,26 +94,6 @@ export const properties = [
     gallery: [m('verdun-vertical'), m('verdun-terrasse'), m('verdun-facade'), m('verdun-vue-port')],
     video: null,
     site: 'https://villa-verdun-cassis.vercel.app',
-  },
-  {
-    slug: 'airelles',
-    status: 'En commercialisation',
-    name: 'Les Airelles',
-    place: 'Les 2 Alpes',
-    region: 'Isère',
-    hook: 'Sur la place de Venosc, un ancien hôtel devient onze appartements.',
-    text: 'Au cœur de la station, au pied des pistes, pour profiter de la montagne l’hiver comme l’été : le glacier culmine à 3 600 mètres et l’on y skie jusqu’en juillet. Des appartements de 59 à 140 m², presque tous avec terrasse, achetés hors taxes et confiés à un gestionnaire quand vous n’y êtes pas.',
-    facts: [
-      ['Disponibles', '9 appartements, de 59 à 140 m²'],
-      ['Prix', 'De 525 000 € à 1,2 M€ HT'],
-      ['Livraison', '2e semestre 2028'],
-      ['Atouts', 'Terrasses, pied des pistes, TVA récupérable'],
-    ],
-    cover: m('airelles-facade-hiver'),
-    gallery: [m('airelles-terrasse'), m('airelles-sejour'), m('airelles-chambre'), m('airelles-station')],
-    video: null,
-    site: 'https://les-airelles.prodigio.fr',
-    note: 'Visuels 3D non contractuels.',
   },
   {
     slug: 'mitja',
